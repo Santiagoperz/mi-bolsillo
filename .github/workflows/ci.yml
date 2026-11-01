@@ -26,6 +26,11 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Usar la versión de npm del proyecto
+        run: |
+          npm install -g "$(node -p "require('./package.json').packageManager")"
+          npm -v
+
       - name: Instalar dependencias
         run: npm ci
 
