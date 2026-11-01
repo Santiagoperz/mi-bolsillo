@@ -1,5 +1,7 @@
 # Mi Bolsillo
 
+[![CI](https://github.com/Santiagoperz/mi-bolsillo/actions/workflows/ci.yml/badge.svg)](https://github.com/Santiagoperz/mi-bolsillo/actions/workflows/ci.yml)
+
 Aplicación personal para registrar y consultar gastos cotidianos en pesos colombianos (COP). Se instala como PWA en iPhone y guarda los datos localmente en el dispositivo, sin backend.
 
 ## Estado
