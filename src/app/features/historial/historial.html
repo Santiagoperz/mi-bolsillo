@@ -4,9 +4,71 @@
 <p class="error" role="alert">{{ error.message }}</p>
 } @else if (gastos.cargando() && gastos.recientes().length === 0) {
 <p class="estado">Cargando gastos…</p>
-} @else if (gastos.recientes().length > 0) {
+} @else if (gastos.recientes().length === 0) {
+<div class="vacio">
+    <p>Todavía no has registrado gastos.</p>
+    <a routerLink="/registro">Registrar el primero</a>
+</div>
+} @else {
+<form class="filtros" [formGroup]="filtros" role="search" aria-label="Filtros del historial">
+    <div class="campo">
+        <label for="filtro-categoria">Categoría</label>
+        <select id="filtro-categoria" formControlName="categoria">
+            <option value="">Todas</option>
+            @for (categoria of categorias; track categoria) {
+            <option [value]="categoria">{{ nombres[categoria] }}</option>
+            }
+        </select>
+    </div>
+
+    <div class="campo">
+        <label for="filtro-periodo">Período</label>
+        <select id="filtro-periodo" formControlName="periodo">
+            <option value="todo">Todo</option>
+            <option value="dia">Un día</option>
+            <option value="semana">Una semana</option>
+            <option value="mes">Un mes</option>
+            <option value="rango">Entre fechas</option>
+        </select>
+    </div>
+
+    @switch (valor().periodo) {
+    @case ('todo') {}
+    @case ('rango') {
+    <div class="campo">
+        <label for="filtro-desde">Desde</label>
+        <input id="filtro-desde" type="date" formControlName="desde" />
+    </div>
+    <div class="campo">
+        <label for="filtro-hasta">Hasta</label>
+        <input id="filtro-hasta" type="date" formControlName="hasta" />
+    </div>
+    }
+    @default {
+    <div class="campo campo-ancho">
+        <label for="filtro-referencia">{{ etiquetaReferencia[valor().periodo] }}</label>
+        <input id="filtro-referencia" type="date" formControlName="referencia" />
+    </div>
+    }
+    }
+
+    @if (rangoTexto(); as texto) {
+    <p class="rango">{{ texto }}</p>
+    }
+</form>
+
+<div class="resumen" role="status">
+    <span>
+        {{ filtrados().length }} {{ filtrados().length === 1 ? 'gasto' : 'gastos' }} · {{ total() | pesos }}
+    </span>
+    @if (hayFiltros()) {
+    <button type="button" (click)="limpiar()">Limpiar filtros</button>
+    }
+</div>
+
+@if (filtrados().length > 0) {
 <ul class="lista">
-    @for (gasto of gastos.recientes(); track gasto.id) {
+    @for (gasto of filtrados(); track gasto.id) {
     <li>
         <a class="gasto" [routerLink]="['/historial', gasto.id]">
             <div class="detalle">
@@ -19,8 +81,6 @@
     }
 </ul>
 } @else {
-<div class="vacio">
-    <p>Todavía no has registrado gastos.</p>
-    <a routerLink="/registro">Registrar el primero</a>
-</div>
+<p class="sin-resultados">Ningún gasto coincide con los filtros.</p>
+}
 }
