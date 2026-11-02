@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, inject, signal } from '@angular/core';
+import { Injectable, InjectionToken, computed, inject, signal } from '@angular/core';
 import { ErrorBaseDatos, traducirError } from '../database/database.config';
 import { Gasto } from '../models/gasto.model';
 import { creadoEnLocal, hoy } from '../utils/fechas';
@@ -25,7 +25,15 @@ function ordenar(gastos: readonly Gasto[]): Gasto[] {
         a.fecha < b.fecha ? -1 : a.fecha > b.fecha ? 1 : a.id - b.id,
     );
 }
-
+/** Más recientes primero: fecha descendente y, en el mismo día, el último creado primero. */
+function ordenarRecientes(gastos: readonly Gasto[]): Gasto[] {
+    return [...gastos].sort((a, b) => {
+        if (a.fecha !== b.fecha) {
+            return a.fecha < b.fecha ? 1 : -1;
+        }
+        return Date.parse(b.creadoEn) - Date.parse(a.creadoEn) || b.id - a.id;
+    });
+}
 /**
  * Reglas de negocio y estado de los gastos.
  * Ninguna operación lanza excepciones: el resultado indica qué pasó.
@@ -41,6 +49,8 @@ export class GastoService {
 
     /** Todos los gastos, ordenados por fecha y, dentro de un día, por orden de creación. */
     readonly gastos = this._gastos.asReadonly();
+    /** Los gastos en el orden del historial: los más recientes primero. */
+    readonly recientes = computed(() => ordenarRecientes(this._gastos()));
     readonly cargando = this._cargando.asReadonly();
     /** Error de la última carga. Los de guardar o eliminar llegan en el resultado de cada operación. */
     readonly error = this._error.asReadonly();

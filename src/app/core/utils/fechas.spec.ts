@@ -11,6 +11,7 @@ import {
     inicioMes,
     inicioSemana,
     parsearFecha,
+    formatearFechaCorta,
 } from './fechas';
 
 describe('fechas', () => {
@@ -98,5 +99,9 @@ describe('fechas', () => {
         const creadoEn = creadoEnLocal(ahora);
         expect(creadoEn).toBe('2026-10-30T12:30:05-05:00');
         expect(new Date(creadoEn).getTime()).toBe(ahora.getTime());
+    });
+    it('should format a short date for lists', () => {
+        expect(formatearFechaCorta('2026-11-02')).toBe('2 nov 2026');
+        expect(formatearFechaCorta('2027-01-05')).toBe('5 ene 2027');
     });
 });

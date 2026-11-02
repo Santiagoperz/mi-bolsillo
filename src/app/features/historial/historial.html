@@ -1,1 +1,24 @@
-<p>historial works!</p>
+<h1>Historial</h1>
+
+@if (gastos.error(); as error) {
+<p class="error" role="alert">{{ error.message }}</p>
+} @else if (gastos.cargando() && gastos.recientes().length === 0) {
+<p class="estado">Cargando gastos…</p>
+} @else if (gastos.recientes().length > 0) {
+<ul class="lista">
+    @for (gasto of gastos.recientes(); track gasto.id) {
+    <li class="gasto">
+        <div class="detalle">
+            <span class="descripcion">{{ gasto.descripcion }}</span>
+            <span class="meta">{{ nombres[gasto.categoria] }} · {{ formatearFecha(gasto.fecha) }}</span>
+        </div>
+        <span class="monto">{{ gasto.monto | pesos }}</span>
+    </li>
+    }
+</ul>
+} @else {
+<div class="vacio">
+    <p>Todavía no has registrado gastos.</p>
+    <a routerLink="/registro">Registrar el primero</a>
+</div>
+}

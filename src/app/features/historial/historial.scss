@@ -1,0 +1,55 @@
+:host {
+    display: block;
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+}
+
+.lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gasto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.detalle {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.descripcion {
+    overflow-wrap: anywhere;
+}
+
+.meta {
+    color: #475569;
+    font-size: 0.875rem;
+}
+
+.monto {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.estado,
+.vacio {
+    color: #475569;
+}
+
+.error {
+    color: #b91c1c;
+}

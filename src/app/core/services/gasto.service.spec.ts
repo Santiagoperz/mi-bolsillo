@@ -145,4 +145,20 @@ describe('GastoService', () => {
 
         expect(servicio.gastos().map((g) => g.descripcion)).toEqual(['Desayuno']);
     });
+    it('should order recent gastos by fecha and then by creadoEn, newest first', async () => {
+        const base = { monto: 1000, categoria: 'otros' } as const;
+        await almacenamiento.agregar({ ...base, descripcion: 'Mañana', fecha: '2026-10-30', creadoEn: '2026-10-30T08:00:00-05:00' });
+        await almacenamiento.agregar({ ...base, descripcion: 'Anotado tarde', fecha: '2026-10-29', creadoEn: '2026-11-02T09:00:00-05:00' });
+        await almacenamiento.agregar({ ...base, descripcion: 'Mediodía', fecha: '2026-10-30', creadoEn: '2026-10-30T12:00:00-05:00' });
+        await almacenamiento.agregar({ ...base, descripcion: 'Domingo', fecha: '2026-11-01', creadoEn: '2026-11-01T07:00:00-05:00' });
+
+        await servicio.cargar();
+
+        expect(servicio.recientes().map((g) => g.descripcion)).toEqual([
+            'Domingo',
+            'Mediodía',
+            'Mañana',
+            'Anotado tarde',
+        ]);
+    });
 });
