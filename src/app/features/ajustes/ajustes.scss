@@ -1,33 +1,39 @@
-.tarjeta {
-    margin-top: var(--espacio-4);
-    padding: var(--espacio-4);
-    border-radius: var(--radio);
-    background: var(--superficie);
+.tarjeta h3 {
+    margin: var(--espacio-5) 0 var(--espacio-2);
+    font-size: var(--texto-md);
+}
 
-    h2 {
-        margin: 0 0 var(--espacio-2);
-        font-size: var(--texto-lg);
-    }
+.importar {
+    position: relative;
+    width: 100%;
 
-    p {
-        margin: 0 0 var(--espacio-3);
-        color: var(--texto-secundario);
-    }
-
-    .cantidad,
-    .valor-actual {
-        color: var(--texto);
-        font-weight: 500;
-    }
-
-    .ayuda {
-        margin: var(--espacio-3) 0 0;
-        font-size: var(--texto-sm);
+    &:focus-within {
+        outline: 2px solid var(--rosa);
+        outline-offset: 2px;
     }
 }
 
-.acciones {
-    display: flex;
-    flex-direction: column;
-    gap: var(--espacio-3);
+/* Oculto a la vista pero accesible: el label lo activa y sigue llegando con el teclado. */
+.oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.confirmar-importacion {
+    margin-top: var(--espacio-3);
+    padding: var(--espacio-3);
+    border-radius: var(--radio);
+    background: var(--superficie-alta);
+
+    strong {
+        color: var(--texto);
+    }
+}
+
+.error-importacion {
+    margin: var(--espacio-4) 0 0;
 }

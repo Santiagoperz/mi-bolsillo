@@ -15,7 +15,7 @@
     </p>
 
     @if (cantidad() > 0) {
-    <p class="cantidad">{{ cantidad() }} {{ cantidad() === 1 ? 'gasto registrado' : 'gastos registrados' }}</p>
+    <p class="cantidad">{{ textoGastos(cantidad()) }} en la app</p>
     <div class="acciones">
         <button type="button" class="boton" [disabled]="exportando()" (click)="exportar('json')">
             Exportar copia de seguridad
@@ -25,16 +25,58 @@
         </button>
     </div>
     <p class="ayuda">
-        La copia de seguridad (JSON) guarda todos los datos tal cual y es la que servirá para restaurarlos.
+        La copia de seguridad (JSON) guarda todos los datos tal cual y sirve para restaurarlos.
         El archivo para Excel (CSV) se abre en Excel o Numbers.
     </p>
     } @else {
     <p class="vacio">Todavía no hay gastos para exportar.</p>
     }
+
+    <h3>Restaurar</h3>
+    <p>Importa una copia hecha con Mi Bolsillo, por ejemplo al cambiar de iPhone.</p>
+    <label class="boton boton-secundario importar">
+        Importar copia de seguridad
+        <input type="file" class="oculto" accept=".json,application/json" (change)="leerArchivo($event)" />
+    </label>
+
+    @if (copiaPendiente(); as copia) {
+    <div class="confirmar-importacion" role="alertdialog" aria-labelledby="pregunta-importar">
+        <p id="pregunta-importar">
+            La copia tiene <strong>{{ textoGastos(copia.resumen.cantidad) }}</strong>, del
+            {{ formatearFecha(copia.resumen.desde) }} al {{ formatearFecha(copia.resumen.hasta) }}, por
+            {{ copia.resumen.total | pesos }}.
+        </p>
+
+        @if (cantidad() > 0) {
+        <p>Ahora tienes {{ textoGastos(cantidad()) }} en la app. ¿Qué quieres hacer?</p>
+        <div class="acciones">
+            <button type="button" class="boton" [disabled]="importando()" (click)="importar('fusionar')">
+                Añadir los que faltan
+            </button>
+            <button type="button" class="boton boton-peligro" [disabled]="importando()"
+                (click)="importar('reemplazar')">
+                Reemplazar todo
+            </button>
+            <button type="button" class="boton boton-secundario" (click)="cancelarImportacion()">Cancelar</button>
+        </div>
+        <p class="ayuda">"Reemplazar todo" borra los gastos actuales y deja solo los de la copia.</p>
+        } @else {
+        <div class="acciones">
+            <button type="button" class="boton" [disabled]="importando()" (click)="importar('reemplazar')">
+                Importar
+            </button>
+            <button type="button" class="boton boton-secundario" (click)="cancelarImportacion()">Cancelar</button>
+        </div>
+        }
+    </div>
+    }
 </section>
 
 @if (confirmacion(); as texto) {
 <p class="confirmacion" role="status">{{ texto }}</p>
+}
+@if (errorImportacion(); as texto) {
+<p class="error error-importacion" role="alert">{{ texto }}</p>
 }
 
 <section class="tarjeta" aria-labelledby="titulo-almacenamiento">

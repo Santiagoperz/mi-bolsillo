@@ -51,7 +51,7 @@ describe('Ajustes', () => {
 
     it('should export the JSON backup and confirm it', async () => {
         await renderizar(true);
-        expect(elemento.querySelector('.cantidad')?.textContent).toContain('1 gasto registrado');
+        expect(elemento.querySelector('.cantidad')?.textContent).toContain('1 gasto en la app');
 
         boton('Exportar copia de seguridad').click();
         await vi.waitFor(() => {
@@ -90,5 +90,63 @@ describe('Ajustes', () => {
 
         expect(elemento.querySelector('.vacio')?.textContent).toContain('Todavía no hay gastos para exportar');
         expect(elemento.querySelectorAll('.acciones button')).toHaveLength(0);
+    });
+    const COPIA = JSON.stringify({
+        app: 'mi-bolsillo',
+        esquema: 1,
+        exportadoEn: '2026-11-02T10:00:00-05:00',
+        gastos: [
+            { id: 1, descripcion: 'Almuerzo', monto: 18000, categoria: 'alimentacion', fecha: '2026-11-02', creadoEn: '2026-11-02T12:00:00-05:00' },
+            { id: 2, descripcion: 'Bus', monto: 2950, categoria: 'transporte', fecha: '2026-10-30', creadoEn: '2026-10-30T08:00:00-05:00' },
+        ],
+    });
+
+    function elegirArchivo(contenido: string): void {
+        const campo = elemento.querySelector<HTMLInputElement>('input[type="file"]')!;
+        Object.defineProperty(campo, 'files', {
+            value: [new File([contenido], 'copia.json', { type: 'application/json' })],
+            configurable: true,
+        });
+        campo.dispatchEvent(new Event('change'));
+    }
+
+    async function esperar(comprobacion: () => void): Promise<void> {
+        await vi.waitFor(() => {
+            fixture.detectChanges();
+            comprobacion();
+        });
+    }
+
+    it('should restore a backup into an empty app', async () => {
+        await renderizar(false);
+
+        elegirArchivo(COPIA);
+        await esperar(() => expect(elemento.querySelector('.confirmar-importacion')?.textContent).toContain('2 gastos'));
+        boton('Importar').click();
+
+        await esperar(() => expect(elemento.querySelector('.confirmacion')?.textContent).toBe('Copia restaurada: 2 gastos.'));
+        expect(TestBed.inject(GastoService).gastos()).toHaveLength(2);
+    });
+
+    it('should add only the missing gastos when merging', async () => {
+        await renderizar(true);
+
+        elegirArchivo(COPIA);
+        await esperar(() => expect(elemento.querySelector('.confirmar-importacion')).not.toBeNull());
+        boton('Añadir los que faltan').click();
+
+        await esperar(() =>
+            expect(elemento.querySelector('.confirmacion')?.textContent).toBe('Añadido 1 gasto nuevo; 1 ya estaba.'),
+        );
+        expect(TestBed.inject(GastoService).gastos()).toHaveLength(2);
+    });
+
+    it('should explain why a file cannot be imported', async () => {
+        await renderizar(true);
+
+        elegirArchivo('esto no es una copia');
+
+        await esperar(() => expect(elemento.querySelector('[role="alert"]')?.textContent).toContain('no se pudo leer'));
+        expect(TestBed.inject(GastoService).gastos()).toHaveLength(1);
     });
 });

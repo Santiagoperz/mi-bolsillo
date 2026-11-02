@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { AlmacenamientoService } from './almacenamiento.service';
 import { GastoService, RELOJ } from './gasto.service';
 import { EntradaGasto } from './gasto.validacion';
+import { Gasto } from '../models/gasto.model';
 
 const AHORA = new Date(2026, 10, 2, 9, 15, 0);
 
@@ -160,5 +161,31 @@ describe('GastoService', () => {
             'Mañana',
             'Anotado tarde',
         ]);
+    });
+    it('should replace every gasto when importing in replace mode', async () => {
+        await servicio.registrar(entrada({ descripcion: 'Viejo' }));
+        const copia: Gasto[] = [
+            { id: 7, descripcion: 'Bus', monto: 2950, categoria: 'transporte', fecha: '2026-10-30', creadoEn: '2026-10-30T08:00:00-05:00' },
+        ];
+
+        expect(await servicio.importar(copia, 'reemplazar')).toEqual({ estado: 'importado', agregados: 1, omitidos: 0 });
+        expect(servicio.gastos().map((g) => g.descripcion)).toEqual(['Bus']);
+        expect(await almacenamiento.obtener(7)).toEqual(copia[0]);
+        expect(await almacenamiento.listar()).toHaveLength(1);
+    });
+
+    it('should add only the missing gastos when importing in merge mode', async () => {
+        const resultado = await servicio.registrar(entrada());
+        if (resultado.estado !== 'guardado') {
+            throw new Error('No se pudo preparar la prueba');
+        }
+        const copia: Gasto[] = [
+            { ...resultado.gasto, id: 50 },
+            { id: 51, descripcion: 'Bus', monto: 2950, categoria: 'transporte', fecha: '2026-10-30', creadoEn: '2026-10-30T08:00:00-05:00' },
+        ];
+
+        expect(await servicio.importar(copia, 'fusionar')).toEqual({ estado: 'importado', agregados: 1, omitidos: 1 });
+        expect(servicio.gastos()).toHaveLength(2);
+        expect(await almacenamiento.listar()).toHaveLength(2);
     });
 });

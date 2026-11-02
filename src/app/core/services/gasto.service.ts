@@ -4,6 +4,7 @@ import { Gasto } from '../models/gasto.model';
 import { creadoEnLocal, hoy } from '../utils/fechas';
 import { AlmacenamientoService } from './almacenamiento.service';
 import { EntradaGasto, ErroresGasto, validarGasto } from './gasto.validacion';
+import { gastosNuevos } from './importacion';
 
 /** Fuente de la hora actual. Se reemplaza en las pruebas. */
 export const RELOJ = new InjectionToken<() => Date>('RELOJ', {
@@ -18,6 +19,12 @@ export type ResultadoGuardado =
 
 export type ResultadoEliminacion =
     | { readonly estado: 'eliminado' }
+    | { readonly estado: 'error'; readonly error: ErrorBaseDatos };
+
+export type ModoImportacion = 'reemplazar' | 'fusionar';
+
+export type ResultadoImportacion =
+    | { readonly estado: 'importado'; readonly agregados: number; readonly omitidos: number }
     | { readonly estado: 'error'; readonly error: ErrorBaseDatos };
 
 function ordenar(gastos: readonly Gasto[]): Gasto[] {
@@ -112,6 +119,25 @@ export class GastoService {
             await this.almacenamiento.eliminar(id);
             this._gastos.update((gastos) => gastos.filter((g) => g.id !== id));
             return { estado: 'eliminado' };
+        } catch (error) {
+            return { estado: 'error', error: traducirError(error) };
+        }
+    }
+    /**
+ * reemplazar: deja exactamente la copia, con sus ids originales.
+ * fusionar: añade solo los gastos de la copia que no están ya, con ids nuevos.
+ */
+    async importar(copia: readonly Gasto[], modo: ModoImportacion): Promise<ResultadoImportacion> {
+        try {
+            if (modo === 'reemplazar') {
+                await this.almacenamiento.reemplazarTodo(copia);
+                this._gastos.set(ordenar(copia));
+                return { estado: 'importado', agregados: copia.length, omitidos: 0 };
+            }
+
+            const agregados = await this.almacenamiento.agregarVarios(gastosNuevos(this._gastos(), copia));
+            this._gastos.update((gastos) => ordenar([...gastos, ...agregados]));
+            return { estado: 'importado', agregados: agregados.length, omitidos: copia.length - agregados.length };
         } catch (error) {
             return { estado: 'error', error: traducirError(error) };
         }

@@ -56,7 +56,30 @@ export class AlmacenamientoService {
             await Promise.all([transaccion.store.delete(id), transaccion.done]);
         });
     }
+    /** Borra todos los gastos y guarda los de la lista, con sus ids, en una sola transacción. */
+    reemplazarTodo(gastos: readonly Gasto[]): Promise<void> {
+        return this.ejecutar(async (db) => {
+            const transaccion = db.transaction('gastos', 'readwrite');
+            await Promise.all([
+                transaccion.store.clear(),
+                ...gastos.map((gasto) => transaccion.store.put(gasto)),
+                transaccion.done,
+            ]);
+        });
+    }
 
+    /** Agrega varios gastos en una sola transacción: o se guardan todos o ninguno. */
+    agregarVarios(gastos: readonly GastoSinId[]): Promise<Gasto[]> {
+        return this.ejecutar(async (db) => {
+            const transaccion = db.transaction('gastos', 'readwrite');
+            const [ids] = await Promise.all([
+                Promise.all(gastos.map((gasto) => transaccion.store.add(gasto as Gasto))),
+                transaccion.done,
+            ]);
+            return gastos.map((gasto, indice) => ({ ...gasto, id: ids[indice] }));
+        });
+    }
+    
     private async ejecutar<T>(operacion: (db: BaseDatos) => Promise<T>): Promise<T> {
         try {
             return await operacion(await this.obtenerConexion());
