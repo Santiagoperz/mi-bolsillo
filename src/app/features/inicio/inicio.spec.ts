@@ -115,3 +115,23 @@ describe('Inicio', () => {
         expect(elemento.querySelector('.comparacion')).toBeNull();
     });
 });
+describe('Inicio sin almacenamiento', () => {
+    afterEach(() => {
+        vi.unstubAllGlobals();
+    });
+
+    it('should show the load error message', async () => {
+        vi.stubGlobal('indexedDB', undefined);
+        TestBed.configureTestingModule({
+            imports: [Inicio],
+            providers: [provideRouter([]), { provide: RELOJ, useValue: () => new Date(2026, 10, 2, 10, 0) }],
+        });
+        await TestBed.inject(GastoService).cargar();
+
+        const fixture = TestBed.createComponent(Inicio);
+        await fixture.whenStable();
+        const elemento = fixture.nativeElement as HTMLElement;
+
+        expect(elemento.querySelector('[role="alert"]')?.textContent).toContain('no permite guardar datos');
+    });
+});

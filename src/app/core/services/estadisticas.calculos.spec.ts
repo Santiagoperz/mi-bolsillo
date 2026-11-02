@@ -102,4 +102,15 @@ describe('estadisticas.calculos', () => {
         expect(meses.map((p) => p.rango.desde)).toEqual(['2026-11-01', '2026-12-01', '2027-01-01']);
         expect(meses.map((p) => p.total)).toEqual([50950, 0, 0]);
     });
+    it('should handle a list with no gastos at all', () => {
+        const vacio = resumirPeriodo([], rangoPeriodo('mes', '2026-11-02'));
+        expect(vacio).toMatchObject({ total: 0, cantidad: 0, porCategoria: [] });
+        expect(totalesPorCategoria([])).toEqual([]);
+
+        const serie = serieEvolucion([], 'mes', '2026-11-02', 6);
+        expect(serie.map((p) => p.total)).toEqual([0, 0, 0, 0, 0, 0]);
+
+        const { comparacion } = compararPeriodos([], rangoPeriodo('semana', '2026-11-02'));
+        expect(comparacion).toEqual({ actual: 0, anterior: 0, diferencia: 0, porcentaje: null });
+    });
 });

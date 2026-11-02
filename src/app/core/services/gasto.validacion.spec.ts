@@ -1,4 +1,5 @@
 import { EntradaGasto, validarGasto } from './gasto.validacion';
+import { hoy } from '../utils/fechas';
 
 const HOY = '2026-11-02';
 
@@ -59,5 +60,13 @@ describe('validarGasto', () => {
             'fecha',
             'monto',
         ]);
+    });
+    it('should move the future-date limit exactly at midnight', () => {
+        const casiMedianoche = hoy(new Date(2026, 10, 2, 23, 59, 59));
+        const medianoche = hoy(new Date(2026, 10, 3, 0, 0, 0));
+        const delDiaNuevo = entrada({ fecha: '2026-11-03' });
+
+        expect(validarGasto(delDiaNuevo, casiMedianoche).valido).toBe(false);
+        expect(validarGasto(delDiaNuevo, medianoche).valido).toBe(true);
     });
 });

@@ -110,4 +110,11 @@ describe('fechas', () => {
         expect(formatearMomento('2026-11-02T00:05:00-05:00')).toBe('2 nov 2026, 12:05 a. m.');
         expect(formatearMomento('2026-11-02T13:30:00-05:00')).toBe('2 nov 2026, 1:30 p. m.');
     });
+    it('should place 23:59 and 00:00 on the right local day', () => {
+        // A las 23:59:59 en Bogotá ya son las 04:59 del día siguiente en UTC.
+        expect(hoy(new Date(2026, 10, 2, 23, 59, 59))).toBe('2026-11-02');
+        expect(hoy(new Date(2026, 10, 3, 0, 0, 0))).toBe('2026-11-03');
+        expect(creadoEnLocal(new Date(2026, 10, 2, 23, 59, 59))).toBe('2026-11-02T23:59:59-05:00');
+        expect(creadoEnLocal(new Date(2026, 10, 3, 0, 0, 0))).toBe('2026-11-03T00:00:00-05:00');
+    });
 });

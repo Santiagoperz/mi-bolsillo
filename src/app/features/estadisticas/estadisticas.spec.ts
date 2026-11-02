@@ -103,4 +103,11 @@ describe('Estadisticas', () => {
         expect(texto('#titulo-periodo')).toBe('Esta semana');
         expect(texto('.total')).toBe('$20.950');
     });
+    it('should show the load error message', async () => {
+        vi.stubGlobal('indexedDB', undefined);
+
+        await renderizar([]);
+
+        expect(elemento.querySelector('[role="alert"]')?.textContent).toContain('no permite guardar datos');
+    });
 });
