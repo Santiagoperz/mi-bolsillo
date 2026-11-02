@@ -13,7 +13,7 @@ export interface Gasto {
     readonly categoria: Categoria;
     /** Día en que se realizó el gasto, en hora local. Se usa para todos los períodos. */
     readonly fecha: FechaLocal;
-    /** Instante en que se creó el registro, en ISO 8601 UTC (RN-05). */
+    /** Instante de creación en hora local con desfase, por ejemplo '2026-10-30T12:30:00-05:00' (RN-05). */
     readonly creadoEn: string;
 }
 

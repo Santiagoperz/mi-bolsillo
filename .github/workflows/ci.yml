@@ -36,6 +36,8 @@ jobs:
 
       - name: Tests
         run: npm run test:ci
+        env:
+          TZ: America/Bogota
 
       - name: Build de producción
         run: npm run build
