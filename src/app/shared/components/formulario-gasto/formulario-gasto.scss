@@ -21,7 +21,7 @@ input,
 select {
     width: 100%;
     padding: 0.875rem var(--espacio-4);
-    border: 1px solid var(--borde);
+    border: 1px solid var(--borde-campo);
     border-radius: var(--radio);
     background: var(--superficie);
     color: var(--texto);
@@ -31,6 +31,7 @@ select {
     &:focus {
         border-color: var(--rosa);
         outline: none;
+        box-shadow: 0 0 0 1px var(--rosa);
     }
 }
 

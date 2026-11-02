@@ -41,7 +41,7 @@ h3 {
     /* Línea base visible en los períodos sin gastos: se lee como $0, no como un hueco. */
     min-height: 3px;
     border-radius: 0.375rem 0.375rem 0 0;
-    background: var(--superficie-alta);
+    background: var(--grafica);
 
     .columna[aria-pressed='true'] & {
         background: var(--lila);

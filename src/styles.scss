@@ -8,10 +8,15 @@
   --superficie: #221d2e;
   --superficie-alta: #2c2639;
   --borde: #3a3349;
+  /* NUEVA. Borde de los campos: contraste 3:1 frente a su fondo (WCAG 1.4.11). */
+  --borde-campo: #6f6680;
+  /* NUEVA. Barras no seleccionadas de la gráfica: contraste 3:1 frente al fondo. */
+  --grafica: #6a5d8f;
 
   --texto: #f3eef9;
   --texto-secundario: #a79db8;
-  --texto-tenue: #6f6680;
+  /* CAMBIADA: antes #6f6680. Ahora cumple 4,5:1 (AA) sobre el fondo y las superficies. */
+  --texto-tenue: #9086a6;
 
   --rosa: #f4b8d4;
   --sobre-rosa: #3a1730;
@@ -59,6 +64,8 @@
   --radio-pildora: 1rem;
   --ancho-pagina: 32rem;
   --alto-navegacion: 4.25rem;
+  /* NUEVA. Área táctil mínima recomendada por Apple (44 px). */
+  --tactil: 2.75rem;
 }
 
 *,
@@ -100,6 +107,7 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -115,7 +123,7 @@ a {
   margin: 0 auto;
   padding: var(--espacio-5) var(--espacio-4);
 
-  > h1 {
+  >h1 {
     margin: 0 0 var(--espacio-4);
     font-size: var(--texto-xl);
   }
@@ -136,6 +144,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: var(--tactil);
   padding: var(--espacio-4);
   border: 0;
   border-radius: var(--radio-grande);

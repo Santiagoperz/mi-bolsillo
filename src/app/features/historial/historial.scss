@@ -21,7 +21,7 @@
     input {
         min-width: 0;
         padding: 0.625rem var(--espacio-3);
-        border: 1px solid var(--borde);
+        border: 1px solid var(--borde-campo);
         border-radius: var(--radio);
         background: var(--superficie);
         color: var(--texto);
@@ -58,6 +58,7 @@
         color: var(--rosa);
         font: inherit;
         font-size: var(--texto-sm);
+        min-height: var(--tactil); 
     }
 }
 

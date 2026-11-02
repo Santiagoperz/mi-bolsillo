@@ -97,9 +97,9 @@ describe('Estadisticas', () => {
         await fixture.whenStable();
 
         const etiquetas = textos('.etiqueta');
-        expect(etiquetas).toHaveLength(8);
-        expect(etiquetas[0]).toBe('14 sep');
-        expect(etiquetas[7]).toBe('2 nov');
+        expect(etiquetas).toHaveLength(6);
+        expect(etiquetas[0]).toBe('28 sep');
+        expect(etiquetas[5]).toBe('2 nov');
         expect(texto('#titulo-periodo')).toBe('Esta semana');
         expect(texto('.total')).toBe('$20.950');
     });

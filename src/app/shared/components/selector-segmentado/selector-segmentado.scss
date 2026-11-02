@@ -13,6 +13,7 @@
         color: var(--texto-secundario);
         font: inherit;
         font-weight: 500;
+        min-height: var(--tactil);
 
         &[aria-pressed='true'] {
             background: var(--rosa);

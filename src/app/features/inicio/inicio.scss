@@ -7,8 +7,8 @@
 }
 
 .flecha {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: var(--tactil);
+    height: var(--tactil);
     border: 0;
     border-radius: 50%;
     background: var(--superficie);
@@ -47,6 +47,7 @@
     color: var(--rosa);
     font: inherit;
     font-size: var(--texto-sm);
+    min-height: var(--tactil);
 }
 
 .totales {

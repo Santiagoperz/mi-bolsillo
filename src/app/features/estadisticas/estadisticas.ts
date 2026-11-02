@@ -22,8 +22,8 @@ import { PesosPipe } from '../../shared/pipes/pesos.pipe';
 
 type TipoEstadistica = Extract<TipoPeriodo, 'semana' | 'mes'>;
 
-/** Cuántos períodos muestra la gráfica de evolución. */
-const CANTIDAD: Readonly<Record<TipoEstadistica, number>> = { semana: 8, mes: 6 };
+/** Cuántos períodos muestra la gráfica. Con 6 columnas, cada una mide al menos 44 px de ancho en un iPhone. */
+const CANTIDAD: Readonly<Record<TipoEstadistica, number>> = { semana: 6, mes: 6 };
 
 const OPCIONES: readonly OpcionSegmento<TipoEstadistica>[] = [
   { valor: 'semana', texto: 'Semanas' },

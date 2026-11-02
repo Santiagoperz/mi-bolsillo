@@ -8,6 +8,7 @@ import { Registro } from './features/registro/registro';
 import { Historial } from './features/historial/historial';
 import { Estadisticas } from './features/estadisticas/estadisticas';
 import { provideServiceWorker } from '@angular/service-worker';
+import { Title } from '@angular/platform-browser';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -71,5 +72,10 @@ describe('App', () => {
 
     expect(enlaces[2].getAttribute('aria-current')).toBe('page');
     expect(enlaces[0].getAttribute('aria-current')).toBeNull();
+  });
+  it('should set a page title for each section', async () => {
+    await TestBed.inject(Router).navigateByUrl('/historial');
+
+    expect(TestBed.inject(Title).getTitle()).toBe('Historial · Mi Bolsillo');
   });
 });

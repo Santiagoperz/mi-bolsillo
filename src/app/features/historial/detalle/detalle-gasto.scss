@@ -1,6 +1,8 @@
 .volver {
-    display: inline-block;
-    margin-bottom: var(--espacio-4);
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+    margin-bottom: var(--espacio-2);
     color: var(--lila);
     text-decoration: none;
 }
