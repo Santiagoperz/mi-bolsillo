@@ -89,4 +89,17 @@ describe('AlmacenamientoService', () => {
         vi.stubGlobal('indexedDB', new IDBFactory());
         expect(await servicio.listar()).toEqual([]);
     });
+    it('should not return a deleted gasto in any query (RN-08)', async () => {
+        await servicio.agregar(gasto('2026-10-26'));
+        const eliminado = await servicio.agregar(gasto('2026-10-28'));
+        await servicio.agregar(gasto('2026-11-01'));
+
+        await servicio.eliminar(eliminado.id);
+
+        expect(await servicio.obtener(eliminado.id)).toBeUndefined();
+        expect((await servicio.listar()).map((g) => g.fecha)).toEqual(['2026-10-26', '2026-11-01']);
+        expect((await servicio.listarPorRango('2026-10-26', '2026-11-01')).map((g) => g.id)).not.toContain(
+            eliminado.id,
+        );
+    });
 });

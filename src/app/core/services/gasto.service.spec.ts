@@ -124,4 +124,25 @@ describe('GastoService', () => {
         expect(servicio.error()?.motivo).toBe('no-disponible');
         expect(servicio.cargando()).toBe(false);
     });
+    it('should not change stored data when an update is invalid', async () => {
+        const resultado = await servicio.registrar(entrada());
+        const original = resultado.estado === 'guardado' ? resultado.gasto : null;
+
+        const actualizacion = await servicio.actualizar(original!.id, entrada({ monto: 0 }));
+
+        expect(actualizacion.estado).toBe('invalido');
+        expect(await almacenamiento.obtener(original!.id)).toEqual(original);
+        expect(servicio.gastos()).toEqual([original]);
+    });
+
+    it('should not bring back a deleted gasto after reloading (RN-08)', async () => {
+        await servicio.registrar(entrada({ descripcion: 'Desayuno' }));
+        const resultado = await servicio.registrar(entrada({ descripcion: 'Almuerzo' }));
+        const id = resultado.estado === 'guardado' ? resultado.gasto.id : -1;
+        await servicio.eliminar(id);
+
+        await servicio.cargar();
+
+        expect(servicio.gastos().map((g) => g.descripcion)).toEqual(['Desayuno']);
+    });
 });
