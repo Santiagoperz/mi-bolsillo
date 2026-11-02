@@ -19,3 +19,6 @@ export interface Gasto {
 
 /** Datos que introduce el usuario. El id y creadoEn se generan al guardar. */
 export type NuevoGasto = Omit<Gasto, 'id' | 'creadoEn'>;
+
+/** Gasto completo salvo el id, que IndexedDB asigna al guardarlo. */
+export type GastoSinId = Omit<Gasto, 'id'>;
