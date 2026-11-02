@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ActualizacionService } from './core/actualizacion.service';
+import { GastoService } from './core/services/gasto.service';
 import { PersistenciaService } from './core/services/persistencia.service';
 
 @Component({
@@ -12,9 +13,11 @@ import { PersistenciaService } from './core/services/persistencia.service';
 export class App {
   protected readonly actualizacion = inject(ActualizacionService);
   protected readonly persistencia = inject(PersistenciaService);
+  private readonly gastos = inject(GastoService);
 
   constructor() {
     this.actualizacion.iniciar();
     void this.persistencia.verificar();
+    void this.gastos.cargar();
   }
 }
