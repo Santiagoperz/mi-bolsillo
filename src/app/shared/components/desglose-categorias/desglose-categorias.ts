@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { NOMBRES_CATEGORIA } from '../../../core/models/categoria.model';
+import { Categoria, NOMBRES_CATEGORIA } from '../../../core/models/categoria.model';
 import { TotalCategoria } from '../../../core/services/estadisticas.calculos';
 import { formatearPorcentaje } from '../../periodos/periodo.textos';
 import { PesosPipe } from '../../pipes/pesos.pipe';
@@ -16,4 +16,7 @@ export class DesgloseCategorias {
 
     protected readonly nombres = NOMBRES_CATEGORIA;
     protected readonly formatearPorcentaje = formatearPorcentaje;
+    protected color(categoria: Categoria): string {
+        return `var(--cat-${categoria})`;
+    }
 }

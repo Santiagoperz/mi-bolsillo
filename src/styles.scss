@@ -1,1 +1,87 @@
-/* You can add global styles to this file, and also import other style files */
+/* Paleta y estilos globales de Mi Bolsillo. Los componentes usan solo estas variables. */
+
+:root {
+    color-scheme: dark;
+
+    --fondo: #17141f;
+    --superficie: #221d2e;
+    --superficie-alta: #2c2639;
+    --borde: #3a3349;
+
+    --texto: #f3eef9;
+    --texto-secundario: #a79db8;
+    --texto-tenue: #6f6680;
+
+    --rosa: #f4b8d4;
+    --sobre-rosa: #3a1730;
+    --lila: #c9b6f2;
+    --sobre-lila: #2a1f4a;
+    --azul: #a9c8f5;
+
+    --exito: #9fe1cb;
+    --exito-fondo: #1e2a24;
+    --peligro: #f5a3a8;
+    --peligro-fondo: #3a1c22;
+
+    --cat-alimentacion: #f4b8d4;
+    --cat-transporte: #a9c8f5;
+    --cat-entretenimiento: #c9b6f2;
+    --cat-compras: #f7d6a8;
+    --cat-estudio: #b8e6d9;
+    --cat-servicios: #f2e5a1;
+    --cat-salud: #f0b4a8;
+    --cat-otros: #c5c0d0;
+
+    --radio: 0.75rem;
+    --radio-grande: 1.25rem;
+    --alto-navegacion: 4.25rem;
+    --fuente: 'Sora', system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--fondo);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100dvh;
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: var(--fuente);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+strong {
+    font-weight: 600;
+}
+
+a {
+    color: var(--rosa);
+}
+
+:focus-visible {
+    outline: 2px solid var(--rosa);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

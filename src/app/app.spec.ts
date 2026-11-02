@@ -10,7 +10,7 @@ import { Estadisticas } from './features/estadisticas/estadisticas';
 import { provideServiceWorker } from '@angular/service-worker';
 
 describe('App', () => {
-    beforeEach(async () => {
+  beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
       providers: [
@@ -57,5 +57,19 @@ describe('App', () => {
   it('should load the estadisticas screen', async () => {
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/estadisticas', Estadisticas);
+  }); it('should show the four sections in the bottom bar and mark the active one', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const elemento = fixture.nativeElement as HTMLElement;
+    const enlaces = [...elemento.querySelectorAll<HTMLAnchorElement>('nav a')];
+
+    expect(enlaces.map((a) => a.textContent?.trim())).toEqual(['Inicio', 'Registrar', 'Historial', 'Estadísticas']);
+    expect(enlaces.map((a) => a.getAttribute('href'))).toEqual(['/inicio', '/registro', '/historial', '/estadisticas']);
+
+    await TestBed.inject(Router).navigateByUrl('/historial');
+    await fixture.whenStable();
+
+    expect(enlaces[2].getAttribute('aria-current')).toBe('page');
+    expect(enlaces[0].getAttribute('aria-current')).toBeNull();
   });
 });

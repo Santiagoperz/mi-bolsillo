@@ -2,11 +2,14 @@
     @for (item of items(); track item.categoria) {
     <li>
         <div class="fila">
-            <span class="nombre">{{ nombres[item.categoria] }}</span>
+            <span class="nombre">
+                <span class="punto" [style.background]="color(item.categoria)" aria-hidden="true"></span>
+                {{ nombres[item.categoria] }}
+            </span>
             <span class="valor">{{ item.total | pesos }} · {{ formatearPorcentaje(item.porcentaje) }}</span>
         </div>
         <div class="barra" aria-hidden="true">
-            <div class="relleno" [style.width.%]="item.porcentaje"></div>
+            <div class="relleno" [style.width.%]="item.porcentaje" [style.background]="color(item.categoria)"></div>
         </div>
     </li>
     }

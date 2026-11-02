@@ -2,7 +2,7 @@
     display: block;
     max-width: 32rem;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1.25rem 1rem;
 }
 
 h1 {
@@ -12,12 +12,14 @@ h1 {
 
 h2 {
     margin: 1.5rem 0 0.75rem;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
 }
 
 h3 {
-    margin: 1rem 0 0.5rem;
-    font-size: 1rem;
+    margin: 1.25rem 0 0.75rem;
+    color: var(--texto-secundario);
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 button {
@@ -31,18 +33,19 @@ button {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.25rem;
     padding: 0.25rem;
-    border-radius: 0.75rem;
-    background: #e2e8f0;
+    border-radius: var(--radio);
+    background: var(--superficie);
 
     button {
         padding: 0.5rem;
         border-radius: 0.5rem;
         background: transparent;
-        font-weight: 600;
+        color: var(--texto-secundario);
+        font-weight: 500;
 
         &[aria-pressed='true'] {
-            background: #ffffff;
-            color: #0f766e;
+            background: var(--rosa);
+            color: var(--sobre-rosa);
         }
     }
 }
@@ -50,7 +53,7 @@ button {
 .grafica {
     display: flex;
     align-items: stretch;
-    gap: 0.25rem;
+    gap: 0.375rem;
     height: 10rem;
 }
 
@@ -58,7 +61,7 @@ button {
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.375rem;
     min-width: 0;
     padding: 0;
     background: transparent;
@@ -73,75 +76,89 @@ button {
 
 .barra {
     width: 100%;
-    border-radius: 0.25rem 0.25rem 0 0;
-    background: #99f6e4;
+    border-radius: 0.375rem 0.375rem 0 0;
+    background: var(--superficie-alta);
 
     .columna[aria-pressed='true'] & {
-        background: #0f766e;
+        background: var(--lila);
     }
 }
 
 .etiqueta {
     overflow: hidden;
-    color: #475569;
+    color: var(--texto-secundario);
     font-size: 0.75rem;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     .columna[aria-pressed='true'] & {
-        color: #0f172a;
-        font-weight: 700;
+        color: var(--lila);
+        font-weight: 600;
     }
 }
 
 .promedio {
-    margin: 0.5rem 0 0;
-    color: #475569;
-    font-size: 0.875rem;
+    margin: 0.625rem 0 0;
+    color: var(--texto-secundario);
+    font-size: 0.8125rem;
 }
 
-.periodo {
-    p {
-        margin: 0;
-    }
+.periodo p {
+    margin: 0;
 }
 
 .total {
-    font-size: 2rem;
-    font-weight: 700;
+    color: var(--lila);
+    font-size: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
 }
 
 .cantidad {
-    color: #475569;
+    color: var(--texto-secundario);
+    font-size: 0.875rem;
 }
 
 .comparacion {
-    margin-top: 0.5rem !important;
-    font-size: 0.875rem;
+    display: inline-block;
+    margin-top: 0.625rem !important;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8125rem;
 
     &[data-tendencia='sube'] {
-        color: #b91c1c;
+        background: var(--peligro-fondo);
+        color: var(--peligro);
     }
 
     &[data-tendencia='baja'] {
-        color: #15803d;
+        background: var(--exito-fondo);
+        color: var(--exito);
     }
 
     &[data-tendencia='igual'],
     &[data-tendencia='sin-base'] {
-        color: #475569;
+        background: var(--superficie);
+        color: var(--texto-secundario);
     }
 }
 
 .mayor {
-    margin-top: 1rem !important;
+    margin-top: 1.25rem !important;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radio);
+    background: var(--superficie);
+
+    strong {
+        color: var(--rosa);
+    }
 }
 
 .vacio,
 .estado {
-    color: #475569;
+    color: var(--texto-secundario);
 }
 
 .error {
-    color: #b91c1c;
+    color: var(--peligro);
 }

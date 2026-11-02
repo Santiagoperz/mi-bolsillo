@@ -30,7 +30,12 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [
+              "@fontsource/sora/400.css",
+              "@fontsource/sora/500.css",
+              "@fontsource/sora/600.css",
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
