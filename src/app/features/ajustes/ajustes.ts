@@ -8,11 +8,11 @@ import { PersistenciaService } from '../../core/services/persistencia.service';
 @Component({
     imports: [RouterLink],
     host: { class: 'pagina' },
-    selector: 'app-datos',
-    styleUrl: './datos.scss',
-    templateUrl: './datos.html',
+    selector: 'app-ajustes',
+    styleUrl: './ajustes.scss',
+    templateUrl: './ajustes.html',
 })
-export class Datos {
+export class Ajustes {
     protected readonly gastos = inject(GastoService);
     protected readonly persistencia = inject(PersistenciaService);
     private readonly entrega = inject(EntregaArchivosService);

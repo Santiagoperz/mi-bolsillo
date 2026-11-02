@@ -5,10 +5,10 @@ import { provideRouter } from '@angular/router';
 import { AlmacenamientoService } from '../../core/services/almacenamiento.service';
 import { EntregaArchivosService } from '../../core/services/entrega-archivos.service';
 import { GastoService, RELOJ } from '../../core/services/gasto.service';
-import { Datos } from './datos';
+import { Ajustes } from './ajustes';
 
-describe('Datos', () => {
-    let fixture: ComponentFixture<Datos>;
+describe('Ajustes', () => {
+    let fixture: ComponentFixture<Ajustes>;
     let elemento: HTMLElement;
     let entregar: ReturnType<typeof vi.fn>;
 
@@ -16,7 +16,7 @@ describe('Datos', () => {
         vi.stubGlobal('indexedDB', new IDBFactory());
         entregar = vi.fn(() => Promise.resolve('compartido'));
         TestBed.configureTestingModule({
-            imports: [Datos],
+            imports: [Ajustes],
             providers: [
                 provideRouter([]),
                 { provide: RELOJ, useValue: () => new Date(2026, 10, 2, 10, 0) },
@@ -40,7 +40,7 @@ describe('Datos', () => {
             });
         }
         await TestBed.inject(GastoService).cargar();
-        fixture = TestBed.createComponent(Datos);
+        fixture = TestBed.createComponent(Ajustes);
         elemento = fixture.nativeElement as HTMLElement;
         await fixture.whenStable();
     }

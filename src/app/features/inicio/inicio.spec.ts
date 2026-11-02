@@ -114,6 +114,11 @@ describe('Inicio', () => {
         expect(elemento.querySelector('.vacio')).not.toBeNull();
         expect(elemento.querySelector('.comparacion')).toBeNull();
     });
+    it('should link to the settings screen from the gear icon', () => {
+        const enlace = elemento.querySelector<HTMLAnchorElement>('a[aria-label="Ajustes"]');
+
+        expect(enlace?.getAttribute('href')).toBe('/ajustes');
+    });
 });
 describe('Inicio sin almacenamiento', () => {
     afterEach(() => {

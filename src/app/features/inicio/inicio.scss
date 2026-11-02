@@ -83,12 +83,24 @@ h3 {
     text-align: center;
 }
 
-.enlace-datos {
+:host {
+    position: relative;
+}
+
+/* Engranaje arriba a la derecha, alineado con el título. */
+.ir-ajustes {
+    position: absolute;
+    top: var(--espacio-4);
+    right: var(--espacio-3);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--tactil);
-    margin-top: var(--espacio-8);
+    width: var(--tactil);
+    height: var(--tactil);
     color: var(--texto-secundario);
-    font-size: var(--texto-sm);
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }

@@ -30,9 +30,11 @@ export const routes: Routes = [
       import('./features/estadisticas/estadisticas').then((m) => m.Estadisticas),
   },
   {
-    path: 'datos',
-    title: 'Tus datos · Mi Bolsillo',
-    loadComponent: () => import('./features/datos/datos').then((m) => m.Datos),
+    path: 'ajustes',
+    title: 'Ajustes · Mi Bolsillo',
+    loadComponent: () => import('./features/ajustes/ajustes').then((m) => m.Ajustes),
   },
+  // Dirección anterior de la pantalla de ajustes (estuvo publicada brevemente).
+  { path: 'datos', redirectTo: 'ajustes' },
   { path: '**', redirectTo: 'inicio' },
 ];

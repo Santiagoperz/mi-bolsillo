@@ -78,12 +78,14 @@ describe('App', () => {
 
     expect(TestBed.inject(Title).getTitle()).toBe('Historial · Mi Bolsillo');
   });
-  it('should reach the data screen instead of falling into the wildcard', async () => {
+  it('should reach the settings screen, also from its old address', async () => {
     const router = TestBed.inject(Router);
 
-    await router.navigateByUrl('/datos');
+    await router.navigateByUrl('/ajustes');
+    expect(router.url).toBe('/ajustes');
+    expect(TestBed.inject(Title).getTitle()).toBe('Ajustes · Mi Bolsillo');
 
-    expect(router.url).toBe('/datos');
-    expect(TestBed.inject(Title).getTitle()).toBe('Tus datos · Mi Bolsillo');
+    await router.navigateByUrl('/datos');
+    expect(router.url).toBe('/ajustes');
   });
 });
