@@ -1,87 +1,160 @@
-/* Paleta y estilos globales de Mi Bolsillo. Los componentes usan solo estas variables. */
+/* Sistema de diseño de Mi Bolsillo. Los componentes usan solo estas variables. */
 
 :root {
-    color-scheme: dark;
+  color-scheme: dark;
 
-    --fondo: #17141f;
-    --superficie: #221d2e;
-    --superficie-alta: #2c2639;
-    --borde: #3a3349;
+  /* Color */
+  --fondo: #17141f;
+  --superficie: #221d2e;
+  --superficie-alta: #2c2639;
+  --borde: #3a3349;
 
-    --texto: #f3eef9;
-    --texto-secundario: #a79db8;
-    --texto-tenue: #6f6680;
+  --texto: #f3eef9;
+  --texto-secundario: #a79db8;
+  --texto-tenue: #6f6680;
 
-    --rosa: #f4b8d4;
-    --sobre-rosa: #3a1730;
-    --lila: #c9b6f2;
-    --sobre-lila: #2a1f4a;
-    --azul: #a9c8f5;
+  --rosa: #f4b8d4;
+  --sobre-rosa: #3a1730;
+  --lila: #c9b6f2;
+  --sobre-lila: #2a1f4a;
+  --azul: #a9c8f5;
 
-    --exito: #9fe1cb;
-    --exito-fondo: #1e2a24;
-    --peligro: #f5a3a8;
-    --peligro-fondo: #3a1c22;
+  --exito: #9fe1cb;
+  --exito-fondo: #1e2a24;
+  --peligro: #f5a3a8;
+  --peligro-fondo: #3a1c22;
 
-    --cat-alimentacion: #f4b8d4;
-    --cat-transporte: #a9c8f5;
-    --cat-entretenimiento: #c9b6f2;
-    --cat-compras: #f7d6a8;
-    --cat-estudio: #b8e6d9;
-    --cat-servicios: #f2e5a1;
-    --cat-salud: #f0b4a8;
-    --cat-otros: #c5c0d0;
+  --cat-alimentacion: #f4b8d4;
+  --cat-transporte: #a9c8f5;
+  --cat-entretenimiento: #c9b6f2;
+  --cat-compras: #f7d6a8;
+  --cat-estudio: #b8e6d9;
+  --cat-servicios: #f2e5a1;
+  --cat-salud: #f0b4a8;
+  --cat-otros: #c5c0d0;
 
-    --radio: 0.75rem;
-    --radio-grande: 1.25rem;
-    --alto-navegacion: 4.25rem;
-    --fuente: 'Sora', system-ui, -apple-system, sans-serif;
+  /* Espaciado */
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.25rem;
+  --espacio-6: 1.5rem;
+  --espacio-8: 2rem;
+
+  /* Tipografía */
+  --fuente: 'Sora', system-ui, -apple-system, sans-serif;
+  --texto-xs: 0.75rem;
+  --texto-sm: 0.8125rem;
+  --texto-md: 0.875rem;
+  --texto-base: 1rem;
+  --texto-lg: 1.0625rem;
+  --texto-xl: 1.5rem;
+  --texto-cifra: 2.5rem;
+  --texto-cifra-sm: 2rem;
+
+  /* Forma y layout */
+  --radio: 0.75rem;
+  --radio-grande: 1.25rem;
+  --radio-pildora: 1rem;
+  --ancho-pagina: 32rem;
+  --alto-navegacion: 4.25rem;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    background: var(--fondo);
-    -webkit-text-size-adjust: 100%;
+  background: var(--fondo);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-    min-height: 100dvh;
-    margin: 0;
-    background: var(--fondo);
-    color: var(--texto);
-    font-family: var(--fuente);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: transparent;
+  min-height: 100dvh;
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1,
 h2,
 h3,
 strong {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 a {
-    color: var(--rosa);
+  color: var(--rosa);
 }
 
 :focus-visible {
-    outline: 2px solid var(--rosa);
-    outline-offset: 2px;
+  outline: 2px solid var(--rosa);
+  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 
-    *,
-    *::before,
-    *::after {
-        animation: none !important;
-        transition: none !important;
-    }
+/* Contenedor de cada pantalla. Se aplica con host: { class: 'pagina' }. */
+.pagina {
+  display: block;
+  max-width: var(--ancho-pagina);
+  margin: 0 auto;
+  padding: var(--espacio-5) var(--espacio-4);
+
+  > h1 {
+    margin: 0 0 var(--espacio-4);
+    font-size: var(--texto-xl);
+  }
+}
+
+/* Mensajes comunes */
+.estado,
+.vacio {
+  color: var(--texto-secundario);
+}
+
+.error {
+  color: var(--peligro);
+}
+
+/* Botones */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espacio-4);
+  border: 0;
+  border-radius: var(--radio-grande);
+  background: var(--rosa);
+  color: var(--sobre-rosa);
+  font: inherit;
+  font-weight: 600;
+
+  &[disabled] {
+    opacity: 0.6;
+  }
+}
+
+.boton-secundario {
+  background: var(--superficie-alta);
+  color: var(--texto);
+}
+
+.boton-peligro {
+  background: var(--peligro-fondo);
+  color: var(--peligro);
 }

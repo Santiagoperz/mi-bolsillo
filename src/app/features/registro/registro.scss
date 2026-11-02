@@ -1,18 +1,6 @@
-:host {
-    display: block;
-    max-width: 32rem;
-    margin: 0 auto;
-    padding: 1.25rem 1rem;
-}
-
-h1 {
-    margin: 0 0 1.25rem;
-    font-size: 1.5rem;
-}
-
 .confirmacion {
-    margin: 1rem 0 0;
-    padding: 0.875rem 1rem;
+    margin: var(--espacio-4) 0 0;
+    padding: var(--espacio-3) var(--espacio-4);
     border-radius: var(--radio);
     background: var(--exito-fondo);
     color: var(--exito);

@@ -1,0 +1,23 @@
+.comparacion {
+    display: inline-block;
+    margin: var(--espacio-3) 0 0;
+    padding: var(--espacio-1) var(--espacio-3);
+    border-radius: var(--radio-pildora);
+    font-size: var(--texto-sm);
+
+    &[data-tendencia='sube'] {
+        background: var(--peligro-fondo);
+        color: var(--peligro);
+    }
+
+    &[data-tendencia='baja'] {
+        background: var(--exito-fondo);
+        color: var(--exito);
+    }
+
+    &[data-tendencia='igual'],
+    &[data-tendencia='sin-base'] {
+        background: var(--superficie);
+        color: var(--texto-secundario);
+    }
+}

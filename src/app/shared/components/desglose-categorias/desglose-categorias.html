@@ -1,3 +1,9 @@
+<div class="reparto" aria-hidden="true">
+    @for (item of items(); track item.categoria) {
+    <span [style.width.%]="item.porcentaje" [style.background]="color(item.categoria)"></span>
+    }
+</div>
+
 <ul class="categorias">
     @for (item of items(); track item.categoria) {
     <li>

@@ -1,0 +1,22 @@
+.selector {
+    display: grid;
+    gap: var(--espacio-1);
+    padding: var(--espacio-1);
+    border-radius: var(--radio);
+    background: var(--superficie);
+
+    button {
+        padding: var(--espacio-2);
+        border: 0;
+        border-radius: var(--espacio-2);
+        background: transparent;
+        color: var(--texto-secundario);
+        font: inherit;
+        font-weight: 500;
+
+        &[aria-pressed='true'] {
+            background: var(--rosa);
+            color: var(--sobre-rosa);
+        }
+    }
+}

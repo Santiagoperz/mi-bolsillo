@@ -5,7 +5,7 @@
 <h1>Editar gasto</h1>
 <app-formulario-gasto textoBoton="Guardar cambios" [inicial]="actual" [accion]="actualizar"
     (guardado)="editando.set(false)" />
-<button type="button" class="secundario" (click)="editando.set(false)">Cancelar</button>
+<button type="button" class="boton boton-secundario cancelar" (click)="editando.set(false)">Cancelar</button>
 } @else {
 <h1>{{ actual.descripcion }}</h1>
 <p class="monto">{{ actual.monto | pesos }}</p>
@@ -23,18 +23,20 @@
 <div class="confirmar" role="alertdialog" aria-labelledby="pregunta-eliminar">
     <p id="pregunta-eliminar">¿Eliminar este gasto? No se puede deshacer.</p>
     <div class="acciones">
-        <button type="button" class="peligro" [disabled]="eliminando()" (click)="eliminar()">
+        <button type="button" class="boton boton-peligro" [disabled]="eliminando()" (click)="eliminar()">
             Sí, eliminar
         </button>
-        <button type="button" class="secundario" (click)="confirmandoEliminacion.set(false)">
+        <button type="button" class="boton boton-secundario" (click)="confirmandoEliminacion.set(false)">
             Cancelar
         </button>
     </div>
 </div>
 } @else {
 <div class="acciones">
-    <button type="button" (click)="editando.set(true)">Editar</button>
-    <button type="button" class="peligro" (click)="confirmandoEliminacion.set(true)">Eliminar</button>
+    <button type="button" class="boton" (click)="editando.set(true)">Editar</button>
+    <button type="button" class="boton boton-peligro" (click)="confirmandoEliminacion.set(true)">
+        Eliminar
+    </button>
 </div>
 }
 
@@ -45,5 +47,5 @@
 } @else if (gastos.cargando()) {
 <p class="estado">Cargando…</p>
 } @else {
-<p class="no-encontrado">Este gasto no existe o fue eliminado.</p>
+<p class="vacio no-encontrado">Este gasto no existe o fue eliminado.</p>
 }

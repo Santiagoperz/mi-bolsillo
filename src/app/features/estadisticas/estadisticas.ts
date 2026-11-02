@@ -6,7 +6,12 @@ import { RangoPeriodo, TipoPeriodo } from '../../core/services/estadisticas.calc
 import { EstadisticasService } from '../../core/services/estadisticas.service';
 import { GastoService, RELOJ } from '../../core/services/gasto.service';
 import { hoy } from '../../core/utils/fechas';
+import { ComparacionPeriodo } from '../../shared/components/comparacion-periodo/comparacion-periodo';
 import { DesgloseCategorias } from '../../shared/components/desglose-categorias/desglose-categorias';
+import {
+  OpcionSegmento,
+  SelectorSegmentado,
+} from '../../shared/components/selector-segmentado/selector-segmentado';
 import {
   describirComparacion,
   etiquetaCorta,
@@ -20,13 +25,14 @@ type TipoEstadistica = Extract<TipoPeriodo, 'semana' | 'mes'>;
 /** Cuántos períodos muestra la gráfica de evolución. */
 const CANTIDAD: Readonly<Record<TipoEstadistica, number>> = { semana: 8, mes: 6 };
 
-const OPCIONES: readonly { readonly tipo: TipoEstadistica; readonly texto: string }[] = [
-  { tipo: 'semana', texto: 'Semanas' },
-  { tipo: 'mes', texto: 'Meses' },
+const OPCIONES: readonly OpcionSegmento<TipoEstadistica>[] = [
+  { valor: 'semana', texto: 'Semanas' },
+  { valor: 'mes', texto: 'Meses' },
 ];
 
 @Component({
-  imports: [RouterLink, PesosPipe, DesgloseCategorias],
+  imports: [RouterLink, PesosPipe, DesgloseCategorias, SelectorSegmentado, ComparacionPeriodo],
+  host: { class: 'pagina' },
   selector: 'app-estadisticas',
   styleUrl: './estadisticas.scss',
   templateUrl: './estadisticas.html',

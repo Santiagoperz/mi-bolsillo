@@ -10,13 +10,8 @@
     <a routerLink="/registro">Registrar un gasto</a>
 </p>
 } @else {
-<div class="selector" role="group" aria-label="Agrupar por">
-    @for (opcion of opciones; track opcion.tipo) {
-    <button type="button" [attr.aria-pressed]="tipo() === opcion.tipo" (click)="cambiarTipo(opcion.tipo)">
-        {{ opcion.texto }}
-    </button>
-    }
-</div>
+<app-selector-segmentado etiqueta="Agrupar por" [opciones]="opciones" [valor]="tipo()"
+    (valorChange)="cambiarTipo($event)" />
 
 <section aria-labelledby="titulo-evolucion">
     <h2 id="titulo-evolucion">Evolución</h2>
@@ -42,7 +37,7 @@
         {{ seleccionado().cantidad }} {{ seleccionado().cantidad === 1 ? 'gasto' : 'gastos' }}
     </p>
     @if (comparacion(); as descripcion) {
-    <p class="comparacion" [attr.data-tendencia]="descripcion.tendencia">{{ descripcion.texto }}</p>
+    <app-comparacion-periodo [descripcion]="descripcion" />
     }
 
     @if (mayor(); as categoria) {

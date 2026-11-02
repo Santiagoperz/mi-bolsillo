@@ -5,13 +5,7 @@
 } @else if (gastos.cargando() && gastos.gastos().length === 0) {
 <p class="estado">Cargando gastos…</p>
 } @else {
-<div class="selector" role="group" aria-label="Tipo de período">
-    @for (opcion of opciones; track opcion.tipo) {
-    <button type="button" [attr.aria-pressed]="tipo() === opcion.tipo" (click)="tipo.set(opcion.tipo)">
-        {{ opcion.texto }}
-    </button>
-    }
-</div>
+<app-selector-segmentado etiqueta="Tipo de período" [opciones]="opciones" [(valor)]="tipo" />
 
 <div class="navegacion">
     <button type="button" class="flecha" aria-label="Período anterior" (click)="mover(-1)">‹</button>
@@ -34,7 +28,7 @@
     <p class="total">{{ resumen().total | pesos }}</p>
     <p class="cantidad">{{ resumen().cantidad }} {{ resumen().cantidad === 1 ? 'gasto' : 'gastos' }}</p>
     @if (comparacion(); as descripcion) {
-    <p class="comparacion" [attr.data-tendencia]="descripcion.tendencia">{{ descripcion.texto }}</p>
+    <app-comparacion-periodo [descripcion]="descripcion" />
     }
 </div>
 

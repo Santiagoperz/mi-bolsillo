@@ -6,18 +6,24 @@ import { EstadisticasService } from '../../core/services/estadisticas.service';
 import { GastoService, RELOJ } from '../../core/services/gasto.service';
 import { PersistenciaService } from '../../core/services/persistencia.service';
 import { hoy } from '../../core/utils/fechas';
-import { PesosPipe } from '../../shared/pipes/pesos.pipe';
-import { contieneFecha, describirComparacion, etiquetaPeriodo } from '../../shared/periodos/periodo.textos';
+import { ComparacionPeriodo } from '../../shared/components/comparacion-periodo/comparacion-periodo';
 import { DesgloseCategorias } from '../../shared/components/desglose-categorias/desglose-categorias';
+import {
+  OpcionSegmento,
+  SelectorSegmentado,
+} from '../../shared/components/selector-segmentado/selector-segmentado';
+import { contieneFecha, describirComparacion, etiquetaPeriodo } from '../../shared/periodos/periodo.textos';
+import { PesosPipe } from '../../shared/pipes/pesos.pipe';
 
-const OPCIONES: readonly { readonly tipo: TipoPeriodo; readonly texto: string }[] = [
-  { tipo: 'dia', texto: 'Día' },
-  { tipo: 'semana', texto: 'Semana' },
-  { tipo: 'mes', texto: 'Mes' },
+const OPCIONES: readonly OpcionSegmento<TipoPeriodo>[] = [
+  { valor: 'dia', texto: 'Día' },
+  { valor: 'semana', texto: 'Semana' },
+  { valor: 'mes', texto: 'Mes' },
 ];
 
 @Component({
-  imports: [RouterLink, PesosPipe, DesgloseCategorias],
+  imports: [RouterLink, PesosPipe, DesgloseCategorias, SelectorSegmentado, ComparacionPeriodo],
+  host: { class: 'pagina' },
   selector: 'app-inicio',
   styleUrl: './inicio.scss',
   templateUrl: './inicio.html',

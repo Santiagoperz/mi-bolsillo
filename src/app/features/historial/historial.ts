@@ -19,10 +19,12 @@ const ETIQUETA_REFERENCIA: Readonly<Record<Periodo, string>> = {
 
 @Component({
   imports: [ReactiveFormsModule, RouterLink, PesosPipe],
+  host: { class: 'pagina' },
   selector: 'app-historial',
   styleUrl: './historial.scss',
   templateUrl: './historial.html',
 })
+
 export class Historial {
   protected readonly gastos = inject(GastoService);
   private readonly reloj = inject(RELOJ);

@@ -9,6 +9,7 @@ import { PesosPipe } from '../../../shared/pipes/pesos.pipe';
 
 @Component({
     imports: [RouterLink, PesosPipe, FormularioGasto],
+    host: { class: 'pagina' },
     selector: 'app-detalle-gasto',
     styleUrl: './detalle-gasto.scss',
     templateUrl: './detalle-gasto.html',

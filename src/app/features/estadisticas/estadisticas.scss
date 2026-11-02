@@ -1,53 +1,13 @@
-:host {
-    display: block;
-    max-width: 32rem;
-    margin: 0 auto;
-    padding: 1.25rem 1rem;
-}
-
-h1 {
-    margin: 0 0 1rem;
-    font-size: 1.5rem;
-}
-
 h2 {
-    margin: 1.5rem 0 0.75rem;
-    font-size: 1.0625rem;
+    margin: var(--espacio-6) 0 var(--espacio-3);
+    font-size: var(--texto-lg);
 }
 
 h3 {
-    margin: 1.25rem 0 0.75rem;
+    margin: var(--espacio-5) 0 var(--espacio-3);
     color: var(--texto-secundario);
-    font-size: 0.875rem;
+    font-size: var(--texto-md);
     font-weight: 500;
-}
-
-button {
-    border: 0;
-    color: inherit;
-    font: inherit;
-}
-
-.selector {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.25rem;
-    padding: 0.25rem;
-    border-radius: var(--radio);
-    background: var(--superficie);
-
-    button {
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        background: transparent;
-        color: var(--texto-secundario);
-        font-weight: 500;
-
-        &[aria-pressed='true'] {
-            background: var(--rosa);
-            color: var(--sobre-rosa);
-        }
-    }
 }
 
 .grafica {
@@ -64,7 +24,9 @@ button {
     gap: 0.375rem;
     min-width: 0;
     padding: 0;
+    border: 0;
     background: transparent;
+    font: inherit;
 }
 
 .area {
@@ -76,6 +38,8 @@ button {
 
 .barra {
     width: 100%;
+    /* Línea base visible en los períodos sin gastos: se lee como $0, no como un hueco. */
+    min-height: 3px;
     border-radius: 0.375rem 0.375rem 0 0;
     background: var(--superficie-alta);
 
@@ -87,7 +51,7 @@ button {
 .etiqueta {
     overflow: hidden;
     color: var(--texto-secundario);
-    font-size: 0.75rem;
+    font-size: var(--texto-xs);
     text-overflow: ellipsis;
     white-space: nowrap;
 
@@ -100,7 +64,7 @@ button {
 .promedio {
     margin: 0.625rem 0 0;
     color: var(--texto-secundario);
-    font-size: 0.8125rem;
+    font-size: var(--texto-sm);
 }
 
 .periodo p {
@@ -116,49 +80,16 @@ button {
 
 .cantidad {
     color: var(--texto-secundario);
-    font-size: 0.875rem;
+    font-size: var(--texto-md);
 }
 
-.comparacion {
-    display: inline-block;
-    margin-top: 0.625rem !important;
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.8125rem;
-
-    &[data-tendencia='sube'] {
-        background: var(--peligro-fondo);
-        color: var(--peligro);
-    }
-
-    &[data-tendencia='baja'] {
-        background: var(--exito-fondo);
-        color: var(--exito);
-    }
-
-    &[data-tendencia='igual'],
-    &[data-tendencia='sin-base'] {
-        background: var(--superficie);
-        color: var(--texto-secundario);
-    }
-}
-
-.mayor {
-    margin-top: 1.25rem !important;
-    padding: 0.875rem 1rem;
+.periodo .mayor {
+    margin-top: var(--espacio-5);
+    padding: 0.875rem var(--espacio-4);
     border-radius: var(--radio);
     background: var(--superficie);
 
     strong {
         color: var(--rosa);
     }
-}
-
-.vacio,
-.estado {
-    color: var(--texto-secundario);
-}
-
-.error {
-    color: var(--peligro);
 }

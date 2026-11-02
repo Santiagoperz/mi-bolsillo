@@ -12,7 +12,7 @@ form {
 
 label {
     color: var(--texto-secundario);
-    font-size: 0.875rem;
+    font-size: var(--texto-md);
     font-weight: 500;
 }
 
@@ -20,13 +20,13 @@ label {
 input,
 select {
     width: 100%;
-    padding: 0.875rem 1rem;
+    padding: 0.875rem var(--espacio-4);
     border: 1px solid var(--borde);
     border-radius: var(--radio);
     background: var(--superficie);
     color: var(--texto);
     font: inherit;
-    font-size: 1rem;
+    font-size: var(--texto-base);
 
     &:focus {
         border-color: var(--rosa);
@@ -46,30 +46,19 @@ input::placeholder {
 .error-guardado {
     margin: 0;
     color: var(--peligro);
-    font-size: 0.875rem;
+    font-size: var(--texto-md);
 }
 
 .error-guardado {
-    margin-top: 1rem;
+    margin-top: var(--espacio-4);
 }
 
 .ayuda {
     margin: 0;
     color: var(--lila);
-    font-size: 0.875rem;
+    font-size: var(--texto-md);
 }
 
-button[type='submit'] {
-    margin-top: 0.5rem;
-    padding: 1rem;
-    border: 0;
-    border-radius: var(--radio-grande);
-    background: var(--rosa);
-    color: var(--sobre-rosa);
-    font: inherit;
-    font-weight: 600;
-
-    &[disabled] {
-        opacity: 0.6;
-    }
+.enviar {
+    margin-top: var(--espacio-2);
 }

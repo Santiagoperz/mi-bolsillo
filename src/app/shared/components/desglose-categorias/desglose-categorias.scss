@@ -1,7 +1,16 @@
+.reparto {
+    display: flex;
+    gap: 2px;
+    height: var(--espacio-3);
+    margin-bottom: var(--espacio-5);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
 .categorias {
     display: flex;
     flex-direction: column;
-    gap: 0.875rem;
+    gap: var(--espacio-4);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -10,7 +19,7 @@
 .fila {
     display: flex;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: var(--espacio-2);
     margin-bottom: 0.375rem;
     font-size: 0.9375rem;
 }
@@ -18,13 +27,13 @@
 .nombre {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--espacio-2);
 }
 
 .punto {
     flex-shrink: 0;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: var(--espacio-2);
+    height: var(--espacio-2);
     border-radius: 50%;
 }
 
@@ -34,13 +43,13 @@
 }
 
 .barra {
-    height: 0.5rem;
-    border-radius: 0.25rem;
+    height: var(--espacio-2);
+    border-radius: var(--espacio-1);
     background: var(--superficie);
     overflow: hidden;
 }
 
 .relleno {
     height: 100%;
-    border-radius: 0.25rem;
+    border-radius: var(--espacio-1);
 }
