@@ -25,4 +25,15 @@ npm install     # instalar dependencias
 npm start       # servidor de desarrollo en http://localhost:4200
 npm test        # pruebas unitarias
 npm run build   # compilación de producción en dist/
+
+## Actualizaciones
+
+La app usa el Service Worker de Angular, que solo se registra en el build de producción. Cada vez que se despliega una versión nueva:
+
+1. El Service Worker la descarga en segundo plano. Comprueba si hay versión nueva al abrir la app y, además, cada vez que la app vuelve a primer plano, porque en iPhone una app instalada rara vez se cierra del todo.
+2. Cuando la versión nueva está lista, aparece un aviso con el botón **Actualizar**. La app no se recarga sola, para no interrumpir un registro a medias.
+3. Al pulsar **Actualizar** se recarga la app con la versión nueva. Si no se pulsa, la versión nueva se aplica la próxima vez que la app arranque desde cero.
+4. Si la caché del navegador queda dañada, la app se recarga automáticamente.
+
+Los iconos se generan desde `scripts/iconos/` con `npm install --no-save sharp` y `node scripts/iconos/generar.mjs`.
 ```

@@ -1,1 +1,7 @@
+@if (actualizacion.hayVersionNueva()) {
+  <div class="aviso-actualizacion" role="status">
+    <span>Hay una versión nueva de Mi Bolsillo.</span>
+    <button type="button" (click)="actualizacion.actualizar()">Actualizar</button>
+  </div>
+}
 <router-outlet />

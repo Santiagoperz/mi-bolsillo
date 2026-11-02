@@ -7,12 +7,16 @@ import { Inicio } from './features/inicio/inicio';
 import { Registro } from './features/registro/registro';
 import { Historial } from './features/historial/historial';
 import { Estadisticas } from './features/estadisticas/estadisticas';
+import { provideServiceWorker } from '@angular/service-worker';
 
 describe('App', () => {
-  beforeEach(async () => {
+    beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter(routes)],
+      providers: [
+        provideRouter(routes),
+        provideServiceWorker('ngsw-worker.js', { enabled: false }),
+      ],
     }).compileComponents();
   });
 

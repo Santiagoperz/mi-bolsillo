@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ActualizacionService } from './core/actualizacion.service';
 
 @Component({
   imports: [RouterOutlet],
@@ -8,5 +9,9 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('mi-bolsillo');
+  protected readonly actualizacion = inject(ActualizacionService);
+
+  constructor() {
+    this.actualizacion.iniciar();
+  }
 }
