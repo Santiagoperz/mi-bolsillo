@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -39,5 +40,31 @@ jobs:
         env:
           TZ: America/Bogota
 
-      - name: Build de producción
-        run: npm run build
+      - name: Build de producción para GitHub Pages
+        run: npm run build:pages
+
+      - name: Copiar index.html como 404.html (rutas profundas)
+        run: cp dist/mi-bolsillo/browser/index.html dist/mi-bolsillo/browser/404.html
+
+      - name: Preparar artefacto de Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/mi-bolsillo/browser
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: despliegue
+        uses: actions/deploy-pages@v4

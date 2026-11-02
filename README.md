@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/Santiagoperz/mi-bolsillo/actions/workflows/ci.yml/badge.svg)](https://github.com/Santiagoperz/mi-bolsillo/actions/workflows/ci.yml)
 
+**App:** https://santiagoperz.github.io/mi-bolsillo/ (ábrela en Safari y usa "Agregar a pantalla de inicio")
+
 Aplicación personal para registrar y consultar gastos cotidianos en pesos colombianos (COP). Se instala como PWA en iPhone y guarda los datos localmente en el dispositivo, sin backend.
 
 ## Estado
@@ -37,3 +39,6 @@ La app usa el Service Worker de Angular, que solo se registra en el build de pro
 
 Los iconos se generan desde `scripts/iconos/` con `npm install --no-save sharp` y `node scripts/iconos/generar.mjs`.
 ```
+## Despliegue
+
+Cada push a `main` que pasa las pruebas se publica en GitHub Pages: el workflow compila con `npm run build:pages` (ruta base `/mi-bolsillo/`), copia `index.html` como `404.html` para que funcionen las rutas profundas y lo despliega con `actions/deploy-pages`. También se puede lanzar a mano desde la pestaña Actions.
