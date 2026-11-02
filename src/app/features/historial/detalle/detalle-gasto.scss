@@ -1,0 +1,87 @@
+:host {
+    display: block;
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.volver {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #0f766e;
+}
+
+h1 {
+    margin: 0 0 0.25rem;
+    font-size: 1.5rem;
+    overflow-wrap: anywhere;
+}
+
+.monto {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    margin: 0 0 1.5rem;
+}
+
+dt {
+    color: #475569;
+}
+
+dd {
+    margin: 0;
+}
+
+.acciones {
+    display: flex;
+    gap: 0.75rem;
+}
+
+button {
+    flex: 1;
+    padding: 0.875rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: #0f766e;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+
+    &.secundario {
+        background: #e2e8f0;
+        color: #0f172a;
+    }
+
+    &.peligro {
+        background: #b91c1c;
+    }
+
+    &[disabled] {
+        opacity: 0.6;
+    }
+}
+
+:host>.secundario {
+    width: 100%;
+    margin-top: 0.75rem;
+}
+
+.confirmar p {
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+}
+
+.error {
+    color: #b91c1c;
+}
+
+.estado,
+.no-encontrado {
+    color: #475569;
+}

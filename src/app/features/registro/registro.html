@@ -1,62 +1,8 @@
 <h1>Registrar gasto</h1>
 
-<form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
-    <div class="campo">
-        <label for="descripcion">Descripción</label>
-        <input #campoDescripcion id="descripcion" type="text" formControlName="descripcion" autocomplete="off"
-            enterkeyhint="next" [attr.aria-invalid]="errores().descripcion ? 'true' : null"
-            [attr.aria-describedby]="errores().descripcion ? 'error-descripcion' : null" />
-        @if (errores().descripcion; as mensaje) {
-        <p class="error" id="error-descripcion">{{ mensaje }}</p>
-        }
-    </div>
-
-    <div class="campo">
-        <label for="monto">Monto (COP)</label>
-        <input id="monto" type="text" inputmode="numeric" formControlName="monto" autocomplete="off" placeholder="18000"
-            [attr.aria-invalid]="errores().monto ? 'true' : null"
-            [attr.aria-describedby]="errores().monto ? 'error-monto' : 'ayuda-monto'" />
-        @if (errores().monto; as mensaje) {
-        <p class="error" id="error-monto">{{ mensaje }}</p>
-        } @else {
-        @if (montoFormateado(); as texto) {
-        <p class="ayuda" id="ayuda-monto">{{ texto }}</p>
-        }
-        }
-    </div>
-
-    <div class="campo">
-        <label for="categoria">Categoría</label>
-        <select id="categoria" formControlName="categoria" [attr.aria-invalid]="errores().categoria ? 'true' : null"
-            [attr.aria-describedby]="errores().categoria ? 'error-categoria' : null">
-            <option value="" disabled>Elige una categoría</option>
-            @for (categoria of categorias; track categoria) {
-            <option [value]="categoria">{{ nombres[categoria] }}</option>
-            }
-        </select>
-        @if (errores().categoria; as mensaje) {
-        <p class="error" id="error-categoria">{{ mensaje }}</p>
-        }
-    </div>
-
-    <div class="campo">
-        <label for="fecha">Fecha</label>
-        <input id="fecha" type="date" formControlName="fecha" [max]="hoy()"
-            [attr.aria-invalid]="errores().fecha ? 'true' : null"
-            [attr.aria-describedby]="errores().fecha ? 'error-fecha' : null" />
-        @if (errores().fecha; as mensaje) {
-        <p class="error" id="error-fecha">{{ mensaje }}</p>
-        }
-    </div>
-
-    <button type="submit" [disabled]="guardando()">
-        {{ guardando() ? 'Guardando…' : 'Guardar gasto' }}
-    </button>
-</form>
+<app-formulario-gasto textoBoton="Guardar gasto" [accion]="registrar" [limpiarAlGuardar]="true"
+    (intento)="confirmacion.set(null)" (guardado)="confirmar($event)" />
 
 @if (confirmacion(); as texto) {
 <p class="confirmacion" role="status">{{ texto }}</p>
-}
-@if (errorGuardado(); as texto) {
-<p class="error-guardado" role="alert">{{ texto }}</p>
 }

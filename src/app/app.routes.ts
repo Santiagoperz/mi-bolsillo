@@ -15,6 +15,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/historial/historial').then((m) => m.Historial),
   },
   {
+    path: 'historial/:id',
+    loadComponent: () =>
+      import('./features/historial/detalle/detalle-gasto').then((m) => m.DetalleGasto),
+  },
+  {
     path: 'estadisticas',
     loadComponent: () =>
       import('./features/estadisticas/estadisticas').then((m) => m.Estadisticas),

@@ -102,3 +102,11 @@ export function formatearFechaCorta(fecha: FechaLocal): string {
     const base = parsearFecha(fecha);
     return `${base.getDate()} ${MESES_CORTOS[base.getMonth()]} ${base.getFullYear()}`;
 }
+
+/** Instante en hora local con formato de 12 horas, por ejemplo '2 nov 2026, 9:15 a. m.'. */
+export function formatearMomento(instante: string): string {
+    const fecha = new Date(instante);
+    const horas = fecha.getHours();
+    const periodo = horas < 12 ? 'a. m.' : 'p. m.';
+    return `${formatearFechaCorta(formatearFecha(fecha))}, ${horas % 12 || 12}:${dosDigitos(fecha.getMinutes())} ${periodo}`;
+}

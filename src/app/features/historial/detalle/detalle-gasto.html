@@ -1,0 +1,49 @@
+<a routerLink="/historial" class="volver">← Historial</a>
+
+@if (gasto(); as actual) {
+@if (editando()) {
+<h1>Editar gasto</h1>
+<app-formulario-gasto textoBoton="Guardar cambios" [inicial]="actual" [accion]="actualizar"
+    (guardado)="editando.set(false)" />
+<button type="button" class="secundario" (click)="editando.set(false)">Cancelar</button>
+} @else {
+<h1>{{ actual.descripcion }}</h1>
+<p class="monto">{{ actual.monto | pesos }}</p>
+
+<dl>
+    <dt>Categoría</dt>
+    <dd>{{ nombres[actual.categoria] }}</dd>
+    <dt>Fecha</dt>
+    <dd>{{ formatearFecha(actual.fecha) }}</dd>
+    <dt>Registrado</dt>
+    <dd>{{ formatearMomento(actual.creadoEn) }}</dd>
+</dl>
+
+@if (confirmandoEliminacion()) {
+<div class="confirmar" role="alertdialog" aria-labelledby="pregunta-eliminar">
+    <p id="pregunta-eliminar">¿Eliminar este gasto? No se puede deshacer.</p>
+    <div class="acciones">
+        <button type="button" class="peligro" [disabled]="eliminando()" (click)="eliminar()">
+            Sí, eliminar
+        </button>
+        <button type="button" class="secundario" (click)="confirmandoEliminacion.set(false)">
+            Cancelar
+        </button>
+    </div>
+</div>
+} @else {
+<div class="acciones">
+    <button type="button" (click)="editando.set(true)">Editar</button>
+    <button type="button" class="peligro" (click)="confirmandoEliminacion.set(true)">Eliminar</button>
+</div>
+}
+
+@if (errorEliminacion(); as texto) {
+<p class="error" role="alert">{{ texto }}</p>
+}
+}
+} @else if (gastos.cargando()) {
+<p class="estado">Cargando…</p>
+} @else {
+<p class="no-encontrado">Este gasto no existe o fue eliminado.</p>
+}

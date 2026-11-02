@@ -12,6 +12,7 @@ import {
     inicioSemana,
     parsearFecha,
     formatearFechaCorta,
+    formatearMomento,
 } from './fechas';
 
 describe('fechas', () => {
@@ -103,5 +104,10 @@ describe('fechas', () => {
     it('should format a short date for lists', () => {
         expect(formatearFechaCorta('2026-11-02')).toBe('2 nov 2026');
         expect(formatearFechaCorta('2027-01-05')).toBe('5 ene 2027');
+    });
+    it('should format a local moment in 12-hour time', () => {
+        expect(formatearMomento('2026-11-02T09:15:00-05:00')).toBe('2 nov 2026, 9:15 a. m.');
+        expect(formatearMomento('2026-11-02T00:05:00-05:00')).toBe('2 nov 2026, 12:05 a. m.');
+        expect(formatearMomento('2026-11-02T13:30:00-05:00')).toBe('2 nov 2026, 1:30 p. m.');
     });
 });

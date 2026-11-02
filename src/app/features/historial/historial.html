@@ -7,12 +7,14 @@
 } @else if (gastos.recientes().length > 0) {
 <ul class="lista">
     @for (gasto of gastos.recientes(); track gasto.id) {
-    <li class="gasto">
-        <div class="detalle">
-            <span class="descripcion">{{ gasto.descripcion }}</span>
-            <span class="meta">{{ nombres[gasto.categoria] }} · {{ formatearFecha(gasto.fecha) }}</span>
-        </div>
-        <span class="monto">{{ gasto.monto | pesos }}</span>
+    <li>
+        <a class="gasto" [routerLink]="['/historial', gasto.id]">
+            <div class="detalle">
+                <span class="descripcion">{{ gasto.descripcion }}</span>
+                <span class="meta">{{ nombres[gasto.categoria] }} · {{ formatearFecha(gasto.fecha) }}</span>
+            </div>
+            <span class="monto">{{ gasto.monto | pesos }}</span>
+        </a>
     </li>
     }
 </ul>
