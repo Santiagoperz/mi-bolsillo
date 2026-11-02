@@ -1,3 +1,67 @@
-<p>inicio works!</p>
+<h1>Resumen</h1>
+
+@if (gastos.error(); as error) {
+<p class="error" role="alert">{{ error.message }}</p>
+} @else if (gastos.cargando() && gastos.gastos().length === 0) {
+<p class="estado">Cargando gastos…</p>
+} @else {
+<div class="selector" role="group" aria-label="Tipo de período">
+    @for (opcion of opciones; track opcion.tipo) {
+    <button type="button" [attr.aria-pressed]="tipo() === opcion.tipo" (click)="tipo.set(opcion.tipo)">
+        {{ opcion.texto }}
+    </button>
+    }
+</div>
+
+<div class="navegacion">
+    <button type="button" class="flecha" aria-label="Período anterior" (click)="mover(-1)">‹</button>
+    <div class="periodo">
+        <h2>{{ etiqueta().titulo }}</h2>
+        @if (etiqueta().subtitulo; as subtitulo) {
+        <p class="subtitulo">{{ subtitulo }}</p>
+        }
+    </div>
+    <button type="button" class="flecha" aria-label="Período siguiente" [disabled]="!puedeAvanzar()" (click)="mover(1)">
+        ›
+    </button>
+</div>
+
+@if (!esActual()) {
+<button type="button" class="volver-hoy" (click)="volverAHoy()">Volver a hoy</button>
+}
+
+<div class="totales" role="status">
+    <p class="total">{{ resumen().total | pesos }}</p>
+    <p class="cantidad">{{ resumen().cantidad }} {{ resumen().cantidad === 1 ? 'gasto' : 'gastos' }}</p>
+    @if (comparacion(); as descripcion) {
+    <p class="comparacion" [attr.data-tendencia]="descripcion.tendencia">{{ descripcion.texto }}</p>
+    }
+</div>
+
+@if (resumen().porCategoria.length > 0) {
+<h3>Por categoría</h3>
+<ul class="categorias">
+    @for (item of resumen().porCategoria; track item.categoria) {
+    <li>
+        <div class="fila">
+            <span class="nombre">{{ nombres[item.categoria] }}</span>
+            <span class="valor">
+                {{ item.total | pesos }} · {{ formatearPorcentaje(item.porcentaje) }}
+            </span>
+        </div>
+        <div class="barra" aria-hidden="true">
+            <div class="relleno" [style.width.%]="item.porcentaje"></div>
+        </div>
+    </li>
+    }
+</ul>
+} @else {
+<p class="vacio">
+    No hay gastos en este período.
+    <a routerLink="/registro">Registrar un gasto</a>
+</p>
+}
+}
+
 <!-- Diagnóstico temporal (#11): permite ver el estado del almacenamiento en el iPhone. -->
-<p>Almacenamiento: {{ persistencia.resumen() }}</p>
+<p class="diagnostico">Almacenamiento: {{ persistencia.resumen() }}</p>
