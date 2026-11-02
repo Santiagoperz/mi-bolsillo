@@ -29,7 +29,6 @@ const OPCIONES: readonly OpcionSegmento<TipoPeriodo>[] = [
   templateUrl: './inicio.html',
 })
 export class Inicio {
-  protected readonly persistencia = inject(PersistenciaService);
   protected readonly gastos = inject(GastoService);
   private readonly estadisticas = inject(EstadisticasService);
   private readonly reloj = inject(RELOJ);

@@ -167,6 +167,7 @@ a {
   background: var(--peligro-fondo);
   color: var(--peligro);
 }
+
 /*
  * Safari en iOS da a los campos de fecha un ancho mínimo propio (se salen del contenedor)
  * y centra el texto. Quitar la apariencia nativa los ajusta al ancho; el selector sigue siendo el de iOS.
@@ -181,4 +182,23 @@ input[type='date'] {
   &::-webkit-date-and-time-value {
     text-align: left;
   }
+}
+
+/* Enlace "← Volver" de las pantallas secundarias. */
+.volver {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tactil);
+  margin-bottom: var(--espacio-2);
+  color: var(--lila);
+  text-decoration: none;
+}
+
+/* Confirmación tras una acción que salió bien. */
+.confirmacion {
+  margin: var(--espacio-4) 0 0;
+  padding: var(--espacio-3) var(--espacio-4);
+  border-radius: var(--radio);
+  background: var(--exito-fondo);
+  color: var(--exito);
 }

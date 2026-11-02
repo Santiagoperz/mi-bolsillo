@@ -1,0 +1,32 @@
+.tarjeta {
+    margin-top: var(--espacio-4);
+    padding: var(--espacio-4);
+    border-radius: var(--radio);
+    background: var(--superficie);
+
+    h2 {
+        margin: 0 0 var(--espacio-2);
+        font-size: var(--texto-lg);
+    }
+
+    p {
+        margin: 0 0 var(--espacio-3);
+        color: var(--texto-secundario);
+    }
+
+    .cantidad {
+        color: var(--texto);
+        font-weight: 500;
+    }
+
+    .ayuda {
+        margin: var(--espacio-3) 0 0;
+        font-size: var(--texto-sm);
+    }
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-3);
+}

@@ -29,5 +29,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/estadisticas/estadisticas').then((m) => m.Estadisticas),
   },
+  {
+    path: 'datos',
+    title: 'Tus datos · Mi Bolsillo',
+    loadComponent: () => import('./features/datos/datos').then((m) => m.Datos),
+  },
   { path: '**', redirectTo: 'inicio' },
 ];

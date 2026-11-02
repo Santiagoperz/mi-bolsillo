@@ -9,7 +9,6 @@ import { FormularioGasto } from '../../shared/components/formulario-gasto/formul
   imports: [FormularioGasto],
   host: { class: 'pagina' },
   selector: 'app-registro',
-  styleUrl: './registro.scss',
   templateUrl: './registro.html',
 })
 export class Registro {

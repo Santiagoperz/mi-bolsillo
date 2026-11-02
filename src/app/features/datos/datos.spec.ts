@@ -1,0 +1,94 @@
+import 'fake-indexeddb/auto';
+import { IDBFactory } from 'fake-indexeddb';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { AlmacenamientoService } from '../../core/services/almacenamiento.service';
+import { EntregaArchivosService } from '../../core/services/entrega-archivos.service';
+import { GastoService, RELOJ } from '../../core/services/gasto.service';
+import { Datos } from './datos';
+
+describe('Datos', () => {
+    let fixture: ComponentFixture<Datos>;
+    let elemento: HTMLElement;
+    let entregar: ReturnType<typeof vi.fn>;
+
+    beforeEach(() => {
+        vi.stubGlobal('indexedDB', new IDBFactory());
+        entregar = vi.fn(() => Promise.resolve('compartido'));
+        TestBed.configureTestingModule({
+            imports: [Datos],
+            providers: [
+                provideRouter([]),
+                { provide: RELOJ, useValue: () => new Date(2026, 10, 2, 10, 0) },
+                { provide: EntregaArchivosService, useValue: { entregar } },
+            ],
+        });
+    });
+
+    afterEach(() => {
+        vi.unstubAllGlobals();
+    });
+
+    async function renderizar(conGastos: boolean): Promise<void> {
+        if (conGastos) {
+            await TestBed.inject(AlmacenamientoService).agregar({
+                descripcion: 'Almuerzo',
+                monto: 18000,
+                categoria: 'alimentacion',
+                fecha: '2026-11-02',
+                creadoEn: '2026-11-02T12:00:00-05:00',
+            });
+        }
+        await TestBed.inject(GastoService).cargar();
+        fixture = TestBed.createComponent(Datos);
+        elemento = fixture.nativeElement as HTMLElement;
+        await fixture.whenStable();
+    }
+
+    function boton(nombre: string): HTMLButtonElement {
+        return [...elemento.querySelectorAll('button')].find((b) => b.textContent?.trim() === nombre)!;
+    }
+
+    it('should export the JSON backup and confirm it', async () => {
+        await renderizar(true);
+        expect(elemento.querySelector('.cantidad')?.textContent).toContain('1 gasto registrado');
+
+        boton('Exportar copia de seguridad').click();
+        await vi.waitFor(() => {
+            fixture.detectChanges();
+            expect(elemento.querySelector('.confirmacion')?.textContent).toContain('mi-bolsillo-2026-11-02.json');
+        });
+
+        const [archivo] = entregar.mock.calls[0];
+        expect(JSON.parse(archivo.contenido)).toMatchObject({ esquema: 1, gastos: [{ descripcion: 'Almuerzo' }] });
+    });
+
+    it('should export the CSV for Excel', async () => {
+        await renderizar(true);
+
+        boton('Exportar para Excel').click();
+        await vi.waitFor(() => expect(entregar).toHaveBeenCalledOnce());
+
+        const [archivo] = entregar.mock.calls[0];
+        expect(archivo.nombre).toBe('mi-bolsillo-2026-11-02.csv');
+        expect(archivo.contenido).toContain('2026-11-02;Almuerzo;Alimentación;18000;');
+    });
+
+    it('should not confirm when the user cancels the share sheet', async () => {
+        entregar.mockResolvedValue('cancelado');
+        await renderizar(true);
+
+        boton('Exportar copia de seguridad').click();
+        await vi.waitFor(() => expect(entregar).toHaveBeenCalledOnce());
+        await fixture.whenStable();
+
+        expect(elemento.querySelector('.confirmacion')).toBeNull();
+    });
+
+    it('should say there is nothing to export yet', async () => {
+        await renderizar(false);
+
+        expect(elemento.querySelector('.vacio')?.textContent).toContain('Todavía no hay gastos para exportar');
+        expect(elemento.querySelectorAll('.acciones button')).toHaveLength(0);
+    });
+});

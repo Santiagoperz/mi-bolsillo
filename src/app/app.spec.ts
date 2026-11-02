@@ -78,4 +78,12 @@ describe('App', () => {
 
     expect(TestBed.inject(Title).getTitle()).toBe('Historial · Mi Bolsillo');
   });
+  it('should reach the data screen instead of falling into the wildcard', async () => {
+    const router = TestBed.inject(Router);
+
+    await router.navigateByUrl('/datos');
+
+    expect(router.url).toBe('/datos');
+    expect(TestBed.inject(Title).getTitle()).toBe('Tus datos · Mi Bolsillo');
+  });
 });

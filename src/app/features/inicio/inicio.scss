@@ -83,9 +83,12 @@ h3 {
     text-align: center;
 }
 
-.diagnostico {
+.enlace-datos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tactil);
     margin-top: var(--espacio-8);
-    color: var(--texto-tenue);
-    font-size: var(--texto-xs);
-    text-align: center;
+    color: var(--texto-secundario);
+    font-size: var(--texto-sm);
 }

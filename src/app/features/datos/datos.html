@@ -1,0 +1,37 @@
+<a routerLink="/inicio" class="volver">← Inicio</a>
+<h1>Tus datos</h1>
+
+<section class="tarjeta" aria-labelledby="titulo-copia">
+    <h2 id="titulo-copia">Copia de seguridad</h2>
+    <p>
+        Tus gastos solo están guardados en este dispositivo. Exporta una copia de vez en cuando y guárdala
+        en Archivos, iCloud o envíatela por correo.
+    </p>
+
+    @if (cantidad() > 0) {
+    <p class="cantidad">{{ cantidad() }} {{ cantidad() === 1 ? 'gasto registrado' : 'gastos registrados' }}</p>
+    <div class="acciones">
+        <button type="button" class="boton" [disabled]="exportando()" (click)="exportar('json')">
+            Exportar copia de seguridad
+        </button>
+        <button type="button" class="boton boton-secundario" [disabled]="exportando()" (click)="exportar('csv')">
+            Exportar para Excel
+        </button>
+    </div>
+    <p class="ayuda">
+        La copia de seguridad (JSON) guarda todos los datos tal cual y es la que servirá para restaurarlos.
+        El archivo para Excel (CSV) se abre en Excel o Numbers.
+    </p>
+    } @else {
+    <p class="vacio">Todavía no hay gastos para exportar.</p>
+    }
+</section>
+
+@if (confirmacion(); as texto) {
+<p class="confirmacion" role="status">{{ texto }}</p>
+}
+
+<section class="tarjeta" aria-labelledby="titulo-almacenamiento">
+    <h2 id="titulo-almacenamiento">Almacenamiento</h2>
+    <p>{{ persistencia.resumen() }}</p>
+</section>
