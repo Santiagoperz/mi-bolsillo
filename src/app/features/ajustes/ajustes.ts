@@ -8,6 +8,7 @@ import { ResumenCopia, leerCopiaSeguridad } from '../../core/services/importacio
 import { PersistenciaService } from '../../core/services/persistencia.service';
 import { formatearFechaCorta, hoy } from '../../core/utils/fechas';
 import { PesosPipe } from '../../shared/pipes/pesos.pipe';
+import { TEMAS, TemaService } from '../../core/services/tema.service';
 
 interface CopiaPendiente {
     readonly gastos: readonly Gasto[];
@@ -26,6 +27,8 @@ function textoGastos(cantidad: number): string {
     templateUrl: './ajustes.html',
 })
 export class Ajustes {
+    protected readonly tema = inject(TemaService);
+    protected readonly temas = TEMAS;
     protected readonly gastos = inject(GastoService);
     protected readonly persistencia = inject(PersistenciaService);
     private readonly entrega = inject(EntregaArchivosService);

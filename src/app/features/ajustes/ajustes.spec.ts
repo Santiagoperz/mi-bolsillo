@@ -149,4 +149,17 @@ describe('Ajustes', () => {
         await esperar(() => expect(elemento.querySelector('[role="alert"]')?.textContent).toContain('no se pudo leer'));
         expect(TestBed.inject(GastoService).gastos()).toHaveLength(1);
     });
+    it('should change the theme from the appearance section', async () => {
+        localStorage.clear();
+        await renderizar(false);
+
+        const medianoche = [...elemento.querySelectorAll<HTMLInputElement>('input[name="tema"]')].find(
+            (opcion) => opcion.value === 'medianoche',
+        )!;
+        medianoche.click();
+        TestBed.tick();
+
+        expect(document.documentElement.getAttribute('data-tema')).toBe('medianoche');
+        expect(localStorage.getItem('mi-bolsillo:tema')).toBe('medianoche');
+    });
 });

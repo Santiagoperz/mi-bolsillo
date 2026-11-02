@@ -61,10 +61,9 @@
   grid-template-columns: repeat(4, 1fr);
   align-items: end;
   height: calc(var(--alto-navegacion) + env(safe-area-inset-bottom));
-  padding: 0 max(0.5rem, env(safe-area-inset-right)) env(safe-area-inset-bottom)
-    max(0.5rem, env(safe-area-inset-left));
+  padding: 0 max(0.5rem, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(0.5rem, env(safe-area-inset-left));
   border-top: 1px solid var(--borde);
-  background: rgb(23 20 31 / 0.92);
+  background: var(--navegacion-fondo);  
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -101,4 +100,18 @@
   border-radius: 50%;
   background: var(--rosa);
   color: var(--sobre-rosa);
+}
+/*
+ * Detrás de la barra de estado de iOS. Su estilo (texto blanco) se fija al instalar la app,
+ * así que en los temas claros esta franja oscura mantiene legible la hora y la batería.
+ */
+:host::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+  height: env(safe-area-inset-top);
+  background: var(--barra-estado);
 }

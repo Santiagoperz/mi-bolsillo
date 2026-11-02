@@ -12,6 +12,9 @@
   --borde-campo: #6f6680;
   /* NUEVA. Barras no seleccionadas de la gráfica: contraste 3:1 frente al fondo. */
   --grafica: #6a5d8f;
+  /* Color detrás de la barra de estado de iOS y fondo translúcido de la barra inferior. */
+  --barra-estado: #17141f;
+  --navegacion-fondo: color-mix(in srgb, var(--fondo) 92%, transparent);
 
   --texto: #f3eef9;
   --texto-secundario: #a79db8;
@@ -66,6 +69,96 @@
   --alto-navegacion: 4.25rem;
   /* NUEVA. Área táctil mínima recomendada por Apple (44 px). */
   --tactil: 2.75rem;
+}
+
+/*
+ * Temas. Ciruela es el de :root. Papel de cada variable de acento:
+ * --rosa = acento de acción (botón principal, pestaña activa), --lila = cifras.
+ * Todos los colores cumplen contraste AA (texto 4,5:1; bordes y gráficas 3:1).
+ */
+[data-tema='medianoche'] {
+  --fondo: #0f1626;
+  --superficie: #18233a;
+  --superficie-alta: #22304d;
+  --borde: #2c3b5c;
+  --borde-campo: #5d6f94;
+  --grafica: #4f6a9c;
+  --barra-estado: #0f1626;
+
+  --texto: #eaf1fb;
+  --texto-secundario: #94a6c2;
+  --texto-tenue: #8395b3;
+
+  --rosa: #a9c8f5;
+  --sobre-rosa: #0c2547;
+  --lila: #b8e6d9;
+  --sobre-lila: #0e3a30;
+  --azul: #d4c2f5;
+
+  --exito: #9fe1cb;
+  --exito-fondo: #12302a;
+  --peligro: #f5a3a8;
+  --peligro-fondo: #3a1c26;
+}
+
+[data-tema='lavanda'],
+[data-tema='algodon'] {
+  color-scheme: light;
+
+  --exito: #1d6b52;
+  --exito-fondo: #e0f4ec;
+  --peligro: #a8323e;
+  --peligro-fondo: #fbe6e8;
+
+  /* Tonos más profundos que en los temas oscuros: 3:1 sobre fondos claros. */
+  --cat-alimentacion: #d9649a;
+  --cat-transporte: #4f86c6;
+  --cat-entretenimiento: #8a6cd1;
+  --cat-compras: #b8752c;
+  --cat-estudio: #35907a;
+  --cat-servicios: #95821f;
+  --cat-salud: #c8645a;
+  --cat-otros: #8a8496;
+}
+
+[data-tema='lavanda'] {
+  --fondo: #f6f1fb;
+  --superficie: #ffffff;
+  --superficie-alta: #f1ebf8;
+  --borde: #ddd2ec;
+  --borde-campo: #8e80a8;
+  --grafica: #8f7bbd;
+  --barra-estado: #2a1f4a;
+
+  --texto: #2a1f4a;
+  --texto-secundario: #5e5278;
+  --texto-tenue: #6f6489;
+
+  --rosa: #5b3fb0;
+  --lila: #2f5fa8;
+  --lila: #5b3fb0;
+  --sobre-lila: #ffffff;
+  --azul: #4f86c6;
+}
+
+[data-tema='algodon'] {
+  --fondo: #fff4f6;
+  --superficie: #ffffff;
+  --superficie-alta: #fbe4ea;
+  --borde: #f0d3dc;
+  --borde-campo: #a07d8a;
+  --grafica: #b0708a;
+  --barra-estado: #3a1730;
+
+  --texto: #3a1730;
+  --texto-secundario: #7d5566;
+  --texto-tenue: #8a6474;
+
+  --rosa: #b03a6e;
+  --sobre-rosa: #ffffff;
+  --lila: #7a3fa6;
+  --sobre-lila: #ffffff;
+  --azul: #4f86c6;
 }
 
 *,

@@ -3,8 +3,24 @@
 
 <section class="tarjeta" aria-labelledby="titulo-apariencia">
     <h2 id="titulo-apariencia">Apariencia</h2>
-    <p class="valor-actual">Tema: Ciruela</p>
-    <p class="ayuda">Pronto podrás elegir entre varios temas, claros y oscuros.</p>
+    <fieldset class="temas">
+        <legend class="oculto">Tema</legend>
+        @for (opcion of temas; track opcion.valor) {
+        <label class="tema" [class.elegido]="tema.preferencia() === opcion.valor">
+            <input type="radio" name="tema" class="oculto" [value]="opcion.valor"
+                [checked]="tema.preferencia() === opcion.valor" (change)="tema.elegir(opcion.valor)" />
+            <span class="muestra" aria-hidden="true">
+                @for (color of opcion.muestra; track $index) {
+                <span [style.background]="color"></span>
+                }
+            </span>
+            <span class="nombre-tema">
+                {{ opcion.nombre }}
+                <small>{{ opcion.descripcion }}</small>
+            </span>
+        </label>
+        }
+    </fieldset>
 </section>
 
 <section class="tarjeta" aria-labelledby="titulo-copia">

@@ -1,25 +1,42 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <title>Mi Bolsillo</title>
-    <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Registro y consulta de gastos personales en pesos colombianos." />
-    <meta name="theme-color" content="#17141f" />
-    <meta name="color-scheme" content="dark" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="manifest" href="manifest.webmanifest" />
 
-    <!-- iOS: instalación desde Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Mi Bolsillo" />
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  </head>
-  <body>
-    <app-root></app-root>
-    <noscript>Activa JavaScript para usar Mi Bolsillo.</noscript>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>Mi Bolsillo</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Registro y consulta de gastos personales en pesos colombianos." />
+  <meta name="theme-color" content="#17141f" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <!-- iOS: instalación desde Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Mi Bolsillo" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+  <!-- Aplica el tema guardado antes de dibujar la app, para evitar un parpadeo.
+         Debe coincidir con resolverTema() de tema.service.ts. -->
+  <script>
+    (function () {
+      try {
+        var guardado = localStorage.getItem('mi-bolsillo:tema') || 'ciruela';
+        var tema = guardado === 'automatico'
+          ? (matchMedia('(prefers-color-scheme: light)').matches ? 'lavanda' : 'ciruela')
+          : guardado;
+        document.documentElement.setAttribute('data-tema', tema);
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+  <noscript>Activa JavaScript para usar Mi Bolsillo.</noscript>
+</body>
+
 </html>
