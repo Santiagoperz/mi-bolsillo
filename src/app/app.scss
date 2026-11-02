@@ -1,19 +1,36 @@
-.aviso-actualizacion {
+.aviso {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
+
+  button {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    font: inherit;
+    font-weight: 600;
+  }
+}
+
+.aviso-actualizacion {
   background: #0f766e;
   color: #ffffff;
 
   button {
-    padding: 0.5rem 1rem;
-    border: 0;
-    border-radius: 0.5rem;
     background: #ffffff;
     color: #0f766e;
-    font: inherit;
-    font-weight: 600;
+  }
+}
+
+.aviso-persistencia {
+  background: #fef3c7;
+  color: #78350f;
+
+  button {
+    background: #78350f;
+    color: #ffffff;
   }
 }

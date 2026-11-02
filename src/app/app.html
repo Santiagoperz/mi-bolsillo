@@ -1,7 +1,16 @@
 @if (actualizacion.hayVersionNueva()) {
-  <div class="aviso-actualizacion" role="status">
+  <div class="aviso aviso-actualizacion" role="status">
     <span>Hay una versión nueva de Mi Bolsillo.</span>
     <button type="button" (click)="actualizacion.actualizar()">Actualizar</button>
+  </div>
+}
+@if (persistencia.mostrarAviso()) {
+  <div class="aviso aviso-persistencia" role="status">
+    <span>
+      Este navegador podría borrar tus gastos si no usas la app por un tiempo.
+      Instálala en la pantalla de inicio para protegerlos.
+    </span>
+    <button type="button" (click)="persistencia.cerrarAviso()">Entendido</button>
   </div>
 }
 <router-outlet />
