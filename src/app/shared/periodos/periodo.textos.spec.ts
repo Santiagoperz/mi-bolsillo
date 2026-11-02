@@ -1,9 +1,9 @@
 import { comparar, rangoPeriodo } from '../../core/services/estadisticas.calculos';
-import { describirComparacion, etiquetaPeriodo, formatearPorcentaje } from './inicio.textos';
+import { describirComparacion, etiquetaCorta, etiquetaPeriodo, formatearPorcentaje } from './periodo.textos';
 
 const HOY = '2026-11-02';
 
-describe('inicio.textos', () => {
+describe('periodo.textos', () => {
     it('should label days, weeks and months relative to today', () => {
         expect(etiquetaPeriodo(rangoPeriodo('dia', HOY), HOY)).toEqual({
             titulo: 'Hoy',
@@ -63,5 +63,9 @@ describe('inicio.textos', () => {
         expect(formatearPorcentaje(47.625)).toBe('48 %');
         expect(formatearPorcentaje(0.3)).toBe('<1 %');
         expect(formatearPorcentaje(0)).toBe('0 %');
+    });
+    it('should build short labels for charts', () => {
+        expect(etiquetaCorta(rangoPeriodo('mes', '2026-10-15'))).toBe('oct');
+        expect(etiquetaCorta(rangoPeriodo('semana', '2026-10-30'))).toBe('26 oct');
     });
 });

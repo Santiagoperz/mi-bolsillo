@@ -6,6 +6,7 @@ import {
     rangoPeriodo,
     resumirPeriodo,
     totalesPorCategoria,
+    serieEvolucion,
 } from './estadisticas.calculos';
 
 function gasto(id: number, categoria: Gasto['categoria'], fecha: Gasto['fecha'], monto: number): Gasto {
@@ -91,5 +92,14 @@ describe('estadisticas.calculos', () => {
         expect(anterior.total).toBe(52000);
         expect(comparacion.diferencia).toBe(-1050);
         expect(comparacion.porcentaje).toBeCloseTo(-2.019, 3);
+    });
+    it('should build an evolution series ending at the reference period', () => {
+        const semanas = serieEvolucion(GASTOS, 'semana', '2026-11-04', 3);
+        expect(semanas.map((p) => p.rango.desde)).toEqual(['2026-10-19', '2026-10-26', '2026-11-02']);
+        expect(semanas.map((p) => p.total)).toEqual([5000, 52000, 50950]);
+
+        const meses = serieEvolucion(GASTOS, 'mes', '2027-01-15', 3);
+        expect(meses.map((p) => p.rango.desde)).toEqual(['2026-11-01', '2026-12-01', '2027-01-01']);
+        expect(meses.map((p) => p.total)).toEqual([50950, 0, 0]);
     });
 });

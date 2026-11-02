@@ -127,3 +127,16 @@ export function compararPeriodos(gastos: readonly Gasto[], rango: RangoPeriodo):
     const anterior = resumirPeriodo(gastos, desplazarPeriodo(rango, -1));
     return { actual, anterior, comparacion: comparar(actual.total, anterior.total) };
 }
+
+/** Los últimos `cantidad` períodos hasta el de la referencia (incluido), del más antiguo al más reciente. */
+export function serieEvolucion(
+    gastos: readonly Gasto[],
+    tipo: TipoPeriodo,
+    referencia: FechaLocal,
+    cantidad: number,
+): ResumenPeriodo[] {
+    const actual = rangoPeriodo(tipo, referencia);
+    return Array.from({ length: cantidad }, (_, indice) =>
+        resumirPeriodo(gastos, desplazarPeriodo(actual, indice - (cantidad - 1))),
+    );
+}

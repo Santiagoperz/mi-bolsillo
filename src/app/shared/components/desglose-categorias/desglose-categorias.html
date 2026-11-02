@@ -1,0 +1,13 @@
+<ul class="categorias">
+    @for (item of items(); track item.categoria) {
+    <li>
+        <div class="fila">
+            <span class="nombre">{{ nombres[item.categoria] }}</span>
+            <span class="valor">{{ item.total | pesos }} · {{ formatearPorcentaje(item.porcentaje) }}</span>
+        </div>
+        <div class="barra" aria-hidden="true">
+            <div class="relleno" [style.width.%]="item.porcentaje"></div>
+        </div>
+    </li>
+    }
+</ul>

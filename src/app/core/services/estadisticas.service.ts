@@ -7,6 +7,7 @@ import {
     compararPeriodos,
     rangoPeriodo,
     resumirPeriodo,
+    serieEvolucion,
 } from './estadisticas.calculos';
 import { GastoService } from './gasto.service';
 
@@ -25,5 +26,8 @@ export class EstadisticasService {
 
     comparacion(tipo: TipoPeriodo, referencia: FechaLocal): ComparacionPeriodos {
         return compararPeriodos(this.gastos.gastos(), rangoPeriodo(tipo, referencia));
+    }
+    evolucion(tipo: TipoPeriodo, referencia: FechaLocal, cantidad: number): ResumenPeriodo[] {
+        return serieEvolucion(this.gastos.gastos(), tipo, referencia, cantidad);
     }
 }

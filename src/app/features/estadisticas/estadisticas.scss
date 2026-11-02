@@ -1,0 +1,147 @@
+:host {
+    display: block;
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+}
+
+h2 {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.125rem;
+}
+
+h3 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1rem;
+}
+
+button {
+    border: 0;
+    color: inherit;
+    font: inherit;
+}
+
+.selector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+    background: #e2e8f0;
+
+    button {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background: transparent;
+        font-weight: 600;
+
+        &[aria-pressed='true'] {
+            background: #ffffff;
+            color: #0f766e;
+        }
+    }
+}
+
+.grafica {
+    display: flex;
+    align-items: stretch;
+    gap: 0.25rem;
+    height: 10rem;
+}
+
+.columna {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.area {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.barra {
+    width: 100%;
+    border-radius: 0.25rem 0.25rem 0 0;
+    background: #99f6e4;
+
+    .columna[aria-pressed='true'] & {
+        background: #0f766e;
+    }
+}
+
+.etiqueta {
+    overflow: hidden;
+    color: #475569;
+    font-size: 0.75rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .columna[aria-pressed='true'] & {
+        color: #0f172a;
+        font-weight: 700;
+    }
+}
+
+.promedio {
+    margin: 0.5rem 0 0;
+    color: #475569;
+    font-size: 0.875rem;
+}
+
+.periodo {
+    p {
+        margin: 0;
+    }
+}
+
+.total {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.cantidad {
+    color: #475569;
+}
+
+.comparacion {
+    margin-top: 0.5rem !important;
+    font-size: 0.875rem;
+
+    &[data-tendencia='sube'] {
+        color: #b91c1c;
+    }
+
+    &[data-tendencia='baja'] {
+        color: #15803d;
+    }
+
+    &[data-tendencia='igual'],
+    &[data-tendencia='sin-base'] {
+        color: #475569;
+    }
+}
+
+.mayor {
+    margin-top: 1rem !important;
+}
+
+.vacio,
+.estado {
+    color: #475569;
+}
+
+.error {
+    color: #b91c1c;
+}

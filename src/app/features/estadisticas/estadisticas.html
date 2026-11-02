@@ -1,1 +1,59 @@
-<p>estadisticas works!</p>
+<h1>Estadísticas</h1>
+
+@if (gastos.error(); as error) {
+<p class="error" role="alert">{{ error.message }}</p>
+} @else if (gastos.cargando() && !hayGastos()) {
+<p class="estado">Cargando gastos…</p>
+} @else if (!hayGastos()) {
+<p class="vacio">
+    Todavía no hay gastos para analizar.
+    <a routerLink="/registro">Registrar un gasto</a>
+</p>
+} @else {
+<div class="selector" role="group" aria-label="Agrupar por">
+    @for (opcion of opciones; track opcion.tipo) {
+    <button type="button" [attr.aria-pressed]="tipo() === opcion.tipo" (click)="cambiarTipo(opcion.tipo)">
+        {{ opcion.texto }}
+    </button>
+    }
+</div>
+
+<section aria-labelledby="titulo-evolucion">
+    <h2 id="titulo-evolucion">Evolución</h2>
+    <div class="grafica">
+        @for (periodo of serie(); track periodo.rango.desde) {
+        <button type="button" class="columna" [attr.aria-pressed]="periodo.rango.desde === seleccionado().rango.desde"
+            [attr.aria-label]="titulo(periodo.rango) + ': ' + (periodo.total | pesos)"
+            (click)="seleccionar(periodo.rango)">
+            <span class="area">
+                <span class="barra" [style.height.%]="altura(periodo.total)"></span>
+            </span>
+            <span class="etiqueta">{{ etiquetaCorta(periodo.rango) }}</span>
+        </button>
+        }
+    </div>
+    <p class="promedio">Promedio: {{ promedio() | pesos }} por {{ tipo() === 'mes' ? 'mes' : 'semana' }}</p>
+</section>
+
+<section aria-labelledby="titulo-periodo" class="periodo">
+    <h2 id="titulo-periodo">{{ titulo(seleccionado().rango) }}</h2>
+    <p class="total">{{ seleccionado().total | pesos }}</p>
+    <p class="cantidad">
+        {{ seleccionado().cantidad }} {{ seleccionado().cantidad === 1 ? 'gasto' : 'gastos' }}
+    </p>
+    @if (comparacion(); as descripcion) {
+    <p class="comparacion" [attr.data-tendencia]="descripcion.tendencia">{{ descripcion.texto }}</p>
+    }
+
+    @if (mayor(); as categoria) {
+    <p class="mayor">
+        Donde más gastaste: <strong>{{ nombres[categoria.categoria] }}</strong>,
+        {{ categoria.total | pesos }} ({{ formatearPorcentaje(categoria.porcentaje) }})
+    </p>
+    <h3>Distribución por categoría</h3>
+    <app-desglose-categorias [items]="seleccionado().porCategoria" />
+    } @else {
+    <p class="vacio">Sin gastos en este período.</p>
+    }
+</section>
+}

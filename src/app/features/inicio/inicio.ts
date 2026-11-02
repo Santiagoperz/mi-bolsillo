@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NOMBRES_CATEGORIA } from '../../core/models/categoria.model';
 import { FechaLocal } from '../../core/models/gasto.model';
 import { TipoPeriodo, desplazarPeriodo } from '../../core/services/estadisticas.calculos';
 import { EstadisticasService } from '../../core/services/estadisticas.service';
@@ -8,7 +7,8 @@ import { GastoService, RELOJ } from '../../core/services/gasto.service';
 import { PersistenciaService } from '../../core/services/persistencia.service';
 import { hoy } from '../../core/utils/fechas';
 import { PesosPipe } from '../../shared/pipes/pesos.pipe';
-import { contieneFecha, describirComparacion, etiquetaPeriodo, formatearPorcentaje } from './inicio.textos';
+import { contieneFecha, describirComparacion, etiquetaPeriodo } from '../../shared/periodos/periodo.textos';
+import { DesgloseCategorias } from '../../shared/components/desglose-categorias/desglose-categorias';
 
 const OPCIONES: readonly { readonly tipo: TipoPeriodo; readonly texto: string }[] = [
   { tipo: 'dia', texto: 'Día' },
@@ -17,7 +17,7 @@ const OPCIONES: readonly { readonly tipo: TipoPeriodo; readonly texto: string }[
 ];
 
 @Component({
-  imports: [RouterLink, PesosPipe],
+  imports: [RouterLink, PesosPipe, DesgloseCategorias],
   selector: 'app-inicio',
   styleUrl: './inicio.scss',
   templateUrl: './inicio.html',
@@ -29,8 +29,6 @@ export class Inicio {
   private readonly reloj = inject(RELOJ);
 
   protected readonly opciones = OPCIONES;
-  protected readonly nombres = NOMBRES_CATEGORIA;
-  protected readonly formatearPorcentaje = formatearPorcentaje;
 
   private readonly fechaHoy = signal<FechaLocal>(hoy(this.reloj()));
   protected readonly tipo = signal<TipoPeriodo>('dia');

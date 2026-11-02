@@ -1,6 +1,12 @@
 import { FechaLocal } from '../../core/models/gasto.model';
 import { Comparacion, RangoPeriodo, TipoPeriodo } from '../../core/services/estadisticas.calculos';
-import { desplazarDias, desplazarSemanas, formatearFechaCorta, parsearFecha } from '../../core/utils/fechas';
+import {
+    MESES_CORTOS,
+    desplazarDias,
+    desplazarSemanas,
+    formatearFechaCorta,
+    parsearFecha,
+} from '../../core/utils/fechas';
 import { formatearPesos } from '../../core/utils/moneda';
 
 const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'] as const;
@@ -106,4 +112,11 @@ export function describirComparacion(
             texto: `${formatearPesos(-comparacion.diferencia)} menos que ${anterior} (−${porcentaje})`,
             tendencia: 'baja',
         };
+}
+
+/** Etiqueta breve para gráficas: 'oct' para meses, '26 oct' para semanas y días. */
+export function etiquetaCorta(rango: RangoPeriodo): string {
+    const inicio = parsearFecha(rango.desde);
+    const mes = MESES_CORTOS[inicio.getMonth()];
+    return rango.tipo === 'mes' ? mes : `${inicio.getDate()} ${mes}`;
 }

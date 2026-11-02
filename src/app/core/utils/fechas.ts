@@ -95,7 +95,7 @@ export function creadoEnLocal(ahora: Date = new Date()): string {
     const zona = `${signo}${dosDigitos(Math.floor(minutosDesfase / 60))}:${dosDigitos(minutosDesfase % 60)}`;
     return `${formatearFecha(ahora)}T${hora}${zona}`;
 }
-const MESES_CORTOS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'] as const;
+export const MESES_CORTOS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'] as const;
 
 /** Fecha corta para listados, por ejemplo '2 nov 2026'. */
 export function formatearFechaCorta(fecha: FechaLocal): string {

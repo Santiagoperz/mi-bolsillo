@@ -40,21 +40,7 @@
 
 @if (resumen().porCategoria.length > 0) {
 <h3>Por categoría</h3>
-<ul class="categorias">
-    @for (item of resumen().porCategoria; track item.categoria) {
-    <li>
-        <div class="fila">
-            <span class="nombre">{{ nombres[item.categoria] }}</span>
-            <span class="valor">
-                {{ item.total | pesos }} · {{ formatearPorcentaje(item.porcentaje) }}
-            </span>
-        </div>
-        <div class="barra" aria-hidden="true">
-            <div class="relleno" [style.width.%]="item.porcentaje"></div>
-        </div>
-    </li>
-    }
-</ul>
+<app-desglose-categorias [items]="resumen().porCategoria" />
 } @else {
 <p class="vacio">
     No hay gastos en este período.
